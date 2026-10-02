@@ -1,1 +1,357 @@
-k
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#6b1c23">
+<meta name="referrer" content="no-referrer">
+<title>ONeness · Admin access</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2718%27 fill=%27%236b1c23%27/%3E%3Ctext x=%2713%27 y=%2748%27 font-size=%2747%27 fill=%27white%27%3EO%3C/text%3E%3C/svg%3E">
+<script id="oneness-config" type="application/json">{"project":"djnpsgtlzgebmjtxfpei","anon":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqbnBzZ3RsemdlYm1qdHhmcGVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0ODAzOTEsImV4cCI6MjEwNjA1NjM5MX0.2W62mRtFmg73mQhnp6rkvE42YGt4Q80J8Obr04P3oZ0"}</script>
+<style id="oneness-theme">
+:root{--ink:#2a1114;--muted:#7a635f;--primary:#6b1c23;--primary-hover:#521219;--primary-dark:#450e14;--paper:#faf8f5;--line:#e8dcd9;--accent:#d4af37}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+a{color:var(--primary)}
+button,input,select,textarea{font:inherit}
+button,.button{border:1px solid var(--line);border-radius:8px;padding:10px 15px;background:white;color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:43px;transition:all 0.2s ease}
+button:hover,.button:hover{border-color:var(--accent); color:var(--primary)}
+button:disabled{opacity:.55;cursor:wait}
+.primary{background:var(--primary);color:white;border-color:var(--primary)}
+.primary:hover{background:var(--primary-hover);color:white}
+.danger{color:#a33824;border-color:#e7bdb5}
+.small{font-size:13px;padding:6px 10px;min-height:34px}
+input,select,textarea{width:100%;min-height:43px;padding:10px;border:1px solid #ccd8d0;border-radius:8px;background:#fff;color:var(--ink);font-size:16px;transition:border-color 0.2s ease}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+input[type=checkbox]{width:19px;min-height:19px;vertical-align:middle;margin-right:8px}
+textarea{min-height:85px}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(27px,4vw,38px);letter-spacing:-1px;line-height:1.15;color:var(--primary)}
+h2{font-size:20px;letter-spacing:-.3px}
+h3{font-size:16px}
+.muted,small{color:var(--muted)}
+.shell{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+.side{background:var(--primary-dark);color:white;padding:28px 20px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;box-shadow: 2px 0 15px rgba(0,0,0,0.1)}
+.brand{color:inherit;font-size:24px;font-weight:800;letter-spacing:-1px;text-decoration:none}
+.brand:before{content:'O';display:inline-grid;place-items:center;width:32px;height:32px;border-radius:11px;background:var(--accent);color:var(--primary-dark);margin-right:9px;font-size:23px}
+.side small{color:#d4baba}
+.side nav{display:grid;gap:6px;margin:35px 0}
+.side nav a{color:#e8dcd9;text-decoration:none;padding:11px 14px;border-radius:8px;transition:all 0.2s}
+.side nav a:hover{background:rgba(212,175,55,0.1);color:var(--accent)}
+.side nav a.active{background:var(--accent);color:var(--primary-dark);font-weight:700}
+.side .bottom{margin-top:auto}
+.profile-corner{padding-top:20px; border-top:1px solid rgba(255,255,255,0.15)}
+.profile-info { display:flex; flex-direction:column; gap:4px; margin-bottom:12px; }
+.profile-info strong{color:white; font-size:14px; line-height:1.2}
+.main{min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 32px;border-bottom:1px solid var(--line);background:#ffffffb8;gap:16px}
+.top span{font-size:13px; font-weight:600}
+.content{max-width:1440px;margin:auto;padding:30px 32px 55px}
+.heading{display:flex;justify-content:space-between;align-items:start;gap:20px;margin-bottom:24px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2px;font-weight:750;color:var(--accent);margin-bottom:7px}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.between{justify-content:space-between}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:18px}
+.card{padding:22px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:0 5px 15px rgba(107,28,35,0.03)}
+.metric b{display:block;font-size:30px;letter-spacing:-1px;margin:8px 0;color:var(--primary)}
+.metric small{display:block}
+.metric.accent{background:#fcf5e3; border-color:var(--accent)}
+.filters{display:flex;flex-wrap:wrap;align-items:end;gap:12px;padding:18px;background:white;border:1px solid var(--line);border-radius:12px;margin-bottom:20px}
+.filters>label{min-width:120px;flex:1;margin:0}
+.filters>button{flex:none}
+.table-wrap{overflow:auto;background:white;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;text-align:left;white-space:nowrap}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);background:#faf8f5}
+td,th{padding:13px 16px;border-bottom:1px solid var(--line)}
+tr:last-child td{border:0}
+.badge{font-size:11px;letter-spacing:.4px;font-weight:700;display:inline-block;border-radius:6px;padding:4px 8px;background:#f3e8e9;color:var(--primary);text-transform:uppercase}
+.badge.delivered,.badge.active,.badge.collected{background:#e3f0e6;color:#1e502c}
+.badge.cancelled,.badge.blocked,.badge.failed{background:#ffe5df;color:#a43825}
+.badge.syncing,.badge.pending,.badge.unpaid{background:#fcf5e3;color:#856417}
+.badge.verified{background:#e3f0e6;color:#1e502c}
+.badge.unverified{background:#fcf5e3;color:#856417}
+.notice{padding:12px 16px;border-radius:10px;margin:14px 0;background:#fcf5e3;border:1px solid var(--accent);color:#856417}
+.notice.error{background:#fff0ed;color:#a33424;border-color:#efc9c0}
+.empty{padding:45px 25px;text-align:center;color:var(--muted)}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:20px}
+.product{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:white}
+.product .photo{height:175px;background:#f3e8e9;display:grid;place-items:center;color:#b09b9d;font-size:45px}
+.product img{width:100%;height:175px;object-fit:contain;background:white}
+.product .body{padding:17px}
+.product .price{font-size:23px;font-weight:750;margin:12px 0;color:var(--primary)}
+.product del{font-size:13px;color:var(--muted);font-weight:400;margin-left:7px}
+.product .bulk{font-size:12px;color:var(--primary);min-height:38px}
+.product input{max-width:95px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.tabs .active{background:#f3e8e9;border-color:#cbaeb1;color:var(--primary)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid .full{grid-column:1/-1}
+.form-grid label{font-size:13px}
+dialog{border:1px solid var(--line);border-radius:14px;padding:25px;width:min(780px,94vw);max-height:88vh;overflow:auto;color:var(--ink);box-shadow:0 30px 100px rgba(42,17,20,0.3)}
+dialog::backdrop{background:rgba(42,17,20,0.7)}
+.dialog-head{display:flex;align-items:start;justify-content:space-between;gap:15px;margin-bottom:15px}
+.dialog-head button{min-height:30px;padding:3px 10px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--primary-dark);color:white;border-radius:10px;padding:13px 22px;z-index:100;max-width:90vw;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+.auth-wrap{min-height:100vh;display:grid;grid-template-columns:1.2fr 1fr}
+.auth-art{background:var(--primary);color:white;padding:7vw;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.auth-art::before{content:"";position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);border-radius:50%}
+.auth-art h1{font-size:clamp(40px,5vw,70px);margin:50px 0 20px;color:white}
+.auth-art p{color:#f3e8e9;max-width:36ch}
+.auth-form{align-self:center;width:min(450px,90%);margin:50px auto}
+.auth-form form{display:grid;gap:15px}
+.auth-form .brand{margin-bottom:28px;display:block}
+.print-area{display:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+
+/* Animated Infinity Loader */
+.infinity-loader {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px auto 20px;
+}
+.infinity-loader svg {
+  width: 80px;
+  height: 40px;
+}
+.infinity-loader path {
+  stroke-dasharray: 150;
+  stroke-dashoffset: 0;
+  animation: infinity-draw 2s linear infinite;
+}
+@keyframes infinity-draw {
+  0% { stroke-dashoffset: 150; }
+  50% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -150; }
+}
+
+@media(max-width:850px){
+.shell{display:block}
+.side{height:auto;position:static;padding:16px}
+.side .brand{font-size:21px}
+.side small,.side .bottom{display:none}
+.side nav{display:flex;overflow-x:auto;margin:13px 0 0;gap:3px}
+.side nav a{white-space:nowrap;padding:8px 12px;font-size:13px}
+.top{padding:12px 18px}
+.content{padding:25px 17px 35px}
+.two{grid-template-columns:1fr}
+.heading{flex-wrap:wrap;margin-bottom:18px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{padding:17px}
+.metric b{font-size:25px}
+.auth-wrap{display:block}
+.auth-art{display:none}
+.form-grid{grid-template-columns:1fr}
+.form-grid .full{grid-column:auto}
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.product .body{padding:12px}
+.product .photo,.product img{height:145px}
+.product .price{font-size:20px}
+.product input{max-width:75px}
+.filters>label{min-width:125px}
+}
+@media print{
+body{background:white}
+.shell,dialog,.toast{display:none!important}
+.print-area{display:block!important}
+.print-area th,.print-area td{font-size:11px;padding:8px;white-space:normal}
+.print-area h1{font-size:25px;color:var(--primary)}
+}
+</style>
+</head><body>
+<div class="auth-wrap"><aside class="auth-art"><span class="brand">ONeness</span><h1>Your store.<br>Under control.</h1><p>Manage products, orders and your wholesale business from one admin workspace.</p><div class="row"><span class="badge">Admin workspace</span><span class="badge">Approval required</span></div></aside>
+<main class="auth-form" id="auth-box">
+  <div style="text-align: center;">
+    <div class="infinity-loader">
+      <svg viewBox="0 0 100 50">
+        <path d="M25,25 C10,25 10,10 25,10 C40,10 40,40 60,40 C75,40 75,25 60,25 C45,25 45,10 25,10" fill="none" stroke="var(--accent)" stroke-width="6"></path>
+      </svg>
+    </div>
+    <p class="muted">Loading secure workspace...</p>
+  </div>
+</main></div>
+
+<div id="app"></div>
+
+<script type="text/plain" id="oneness-core">
+window.App=(()=>{
+ const A={};let client,cfg,profile,settings,page,os;
+ const $=id=>document.getElementById(id);
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const money=v=>v===undefined||v===null?'—':new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR'}).format(Number(v)/100);
+ const date=v=>v?new Date(v).toLocaleString('en-IN',{timeZone:'Asia/Kolkata',dateStyle:'medium',timeStyle:'short'}):'—';
+ const today=()=>new Date(Date.now()+19800000).toISOString().slice(0,10);
+ const paise=v=>{const s=String(v).trim();if(!/^\d+(\.\d{1,2})?$/.test(s))throw Error('Enter an amount with at most two decimal places.');const[a,b='']=s.split('.');const n=Number(a)*100+Number(b.padEnd(2,'0'));if(!Number.isSafeInteger(n))throw Error('Amount is too large.');return n;};
+ const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}};
+ const write=(key,value)=>localStorage.setItem(key,JSON.stringify(value));
+ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+ const staff=p=>['owner','admin'].includes(p?.role);
+ const approved=p=>staff(p)&&p.status==='verified'&&p.email_confirmed===true;
+ const can=permission=>approved(profile)&&(profile.role==='owner'||profile.permissions.includes(permission));
+ const native=()=>{try{const x=window.ONENESS_DEVICE||JSON.parse(window.AppInventor?.getWebViewString()||'null');return x?.device_id?x:null;}catch{return null;}};
+ const device=()=>{const n=native();if(n){if(!/^[\w-]{16,128}$/.test(n.device_id))throw Error('Invalid Android installation ID.');return n.device_id;}let id=localStorage.getItem('oneness-installation');if(!id){id=crypto.randomUUID();localStorage.setItem('oneness-installation',id);}return id;};
+ const loadScript=src=>new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=()=>reject(Error('Could not load a required library. Check your connection.'));document.head.append(s);});
+ function toast(text){let el=$('toast');if(!el){el=document.createElement('div');el.id='toast';el.className='toast';el.setAttribute('role','status');document.body.append(el);}el.textContent=text;clearTimeout(A.toastTimer);A.toastTimer=setTimeout(()=>el.remove(),5000);}
+ function error(e){const message=e.message?.includes('VERSION_CONFLICT')?'This record changed. Refresh the page before saving again.':e.message||String(e);toast(message);return message;}
+ function fail(e){document.body.textContent='';const p=document.createElement('p');p.style='padding:30px';p.textContent=e.message||String(e);const a=document.createElement('a');a.href='index.html';a.textContent='Return to login';p.append(document.createElement('br'),a);document.body.append(p);}
+ async function api(action,data={},extra={}){
+  const {data:{session}}=await client.auth.getSession();if(!session)throw Error('Please sign in again.');
+  let response,result;try{response=await fetch(cfg.url+'/functions/v1/oneness',{method:'POST',headers:{apikey:cfg.anon,Authorization:'Bearer '+session.access_token,'Content-Type':'application/json'},body:JSON.stringify({action,data,...extra}),signal:AbortSignal.timeout(45000)});result=await response.json();}catch{throw Error('Could not confirm the request. Check your connection and retry.');}
+  if(!response.ok||result.ok!==true){const e=Object.assign(Error(result.error?.message||'Request failed'),{code:result.error?.code,status:response.status});
+   if(e.code==='SESSION_REPLACED'){await client.auth.signOut({scope:'local'});sessionStorage.setItem('oneness-message','Your session was replaced by another login.');location.replace('index.html');}
+   if(['ADMIN_UNVERIFIED','ADMIN_BLOCKED','ADMIN_ONLY','EMAIL_UNCONFIRMED'].includes(e.code)&&page!=='index')location.replace('index.html');throw e;}
+  return result.data;
+ }
+ async function all(action,data={},progress){let list=[],before=null;for(;;){const r=await api(action,{...data,limit:100,...(before?{before_id:before}:{})});const batch=Array.isArray(r)?r:r.items; if(!Array.isArray(batch))throw Error('Unexpected list response.');list.push(...batch);progress?.(list.length);const next=Array.isArray(r)?(batch.length===100?batch.at(-1).id:null):r.next_before_id;if(!next)break;if(before!==null&&next>=before)throw Error('Pagination did not advance.');before=next;}return list;}
+ function shell(){
+  const links=[['dashboard','Overview'],...(can('products.view')?[['products','Products']]:[]),...(can('orders')?[['orders','Orders']]:[]),...(can('users')?[['users','Accounts']]:[]),...(can('finance')&&can('orders')?[['payments','Payments'],['analytics','Analytics']]:[]),['settings','Settings']];
+  
+  // UI UPDATE: Moved user profile and sign out to the bottom of the sidebar
+  $('app').innerHTML=`<div class="shell"><aside class="side"><a class="brand" href="dashboard.html">${esc(settings.store_name)}</a><small>Admin workspace.</small><nav>${links.map(([key,label])=>`<a class="${page===key?'active':''}" href="${key}.html">${label}</a>`).join('')}</nav><div class="bottom profile-corner"><div class="profile-info"><span class="badge" style="width:fit-content;margin-bottom:4px;background:var(--accent);color:var(--primary-dark)">${esc(profile.role)}</span><strong>👤 ${esc(profile.name||'Administrator')}</strong></div><button class="small" id="logout" style="width:100%;margin-top:8px;">Sign out</button></div></aside><div class="main"><header class="top"><span>ONeness Admin Panel</span><div class="row"></div></header><main class="content"><div id="account-note"></div><div id="view"></div></main></div></div>`;
+  $('logout').onclick=async()=>{try{await api('session.end');}catch(e){error(e);}try{if(os)await os.logout();await client.auth.signOut({scope:'local'});}finally{location.replace('index.html');}};
+ }
+ async function init(name,permissions=[]){page=name;if(location.protocol==='file:')throw Error('Open these pages through an HTTP/HTTPS website, not by double-clicking the HTML file.');cfg=JSON.parse($('oneness-config').textContent);cfg.url='https://'+cfg.project+'.supabase.co';A.project=cfg.project;await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js');client=window.supabase.createClient(cfg.url,cfg.anon,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:name==='index',storageKey:'oneness-'+cfg.project}});A.client=client;
+  if(name==='index')return A;
+  const {data:{session}}=await client.auth.getSession();if(!session){location.replace('index.html');throw Error('Redirecting to login…');}
+  profile=await api('session.me');A.profile=profile;
+  if(!approved(profile)){location.replace('index.html');throw Error('Admin verification is required.');}
+  if(permissions.some(p=>!can(p)))throw Error('Your account does not have permission to open this page.');
+  settings=await api('settings.get');A.settings=settings;shell();return A;
+ }
+ async function start(){const {data:{session}}=await client.auth.getSession();if(!session)throw Error('Please sign in first.');const m=session.user.user_metadata||{};profile=await api('session.start',{device_id:device(),platform:native()?'android':'web',name:m.name||'',phone:m.phone||'',business_name:m.business_name||''});A.profile=profile;return profile;}
+ const badge=s=>`<span class="badge ${esc(s)}">${esc(s)}</span>`;
+ const header=(title,sub,actions='')=>`<div class="heading"><div><div class="eyebrow">ONeness / ${esc(page)}</div><h1>${esc(title)}</h1><p class="muted">${esc(sub)}</p></div><div class="row">${actions}</div></div>`;
+ const cards=items=>`<div class="grid" style="margin-bottom:24px">${items.map(([label,value,hint],i)=>`<div class="card metric ${i===0?'accent':''}"><small>${esc(label)}</small><b>${esc(value)}</b><small>${esc(hint||'')}</small></div>`).join('')}</div>`;
+ function table(headers,rows){return rows.length?`<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c??''}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:'<div class="card empty">No matching records.</div>';}
+ function modal(title,html){let d=$('modal');if(d){d.close();d.remove();}d=document.createElement('dialog');d.id='modal';d.innerHTML=`<div class="dialog-head"><h2>${esc(title)}</h2><button aria-label="Close" id="close-dialog">×</button></div><div id="dialog-body">${html}</div>`;document.body.append(d);$('close-dialog').onclick=()=>d.close();d.showModal();return d;}
+ function field(f,values){const[n,label,type='text',options=[],required=false]=f,v=values[n]??'';if(type==='checkbox')return `<label class="full"><input name="${n}" type="checkbox" ${v?'checked':''}>${esc(label)}</label>`;let input;if(type==='select')input=`<select id="field-${n}" name="${n}">${options.map(o=>{const[a,b]=Array.isArray(o)?o:[o,o];return`<option value="${esc(a)}" ${String(v)===String(a)?'selected':''}>${esc(b)}</option>`;}).join('')}</select>`;else if(type==='textarea')input=`<textarea id="field-${n}" name="${n}" ${required?'required':''}>${esc(v)}</textarea>`;else input=`<input id="field-${n}" name="${n}" type="${type}" ${type==='file'?'accept="image/png,image/jpeg,image/webp" multiple':`value="${esc(v)}"`} ${type==='number'?'step="any"':''} ${required?'required':''}>`;return `<div class="${type==='textarea'||type==='file'?'full':''}"><label for="field-${n}">${esc(label)}</label>${input}</div>`;}
+ function form(title,fields,values,save){const d=modal(title,`<form id="editor"><div class="form-grid">${fields.map(f=>field(f,values)).join('')}</div><p class="notice error" id="form-error" role="alert" hidden></p><div class="row" style="margin-top:22px"><button class="primary" type="submit">Save changes</button></div></form>`);const f=$('editor');f.onsubmit=async ev=>{ev.preventDefault();const button=f.querySelector('[type=submit]');button.disabled=true;$('form-error').hidden=true;const v=Object.fromEntries(new FormData(f));for(const a of fields)if(a[2]==='checkbox')v[a[0]]=f.elements[a[0]].checked;try{const note=await save(v,f);d.close();toast(typeof note==='string'?note:'Saved');}catch(e){$('form-error').textContent=error(e);$('form-error').hidden=false;}finally{button.disabled=false;}};return f;}
+ function print(title,html){let el=$('print-area');if(!el){el=document.createElement('section');el.id='print-area';el.className='print-area';document.body.append(el);}el.innerHTML=`<h1>${esc(settings.store_name)} · ${esc(title)}</h1><p>Generated ${esc(date(new Date()))} · IST</p>${html}`;window.print();}
+ function csv(title,headers,rows,metadata=''){const safe=v=>{let s=String(v??'');if(typeof v==='string'&&/^[\s]*[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};const text='\ufeff'+[[title],[metadata],headers,...rows].map(r=>r.map(safe).join(',')).join('\r\n');const name=title.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+today()+'.csv';if(native()&&window.AppInventor){window.AppInventor.setWebViewString(JSON.stringify({type:'download',device_id:device(),name,mime:'text/csv',text}));toast('Report sent to the app download handler.');return;}const url=URL.createObjectURL(new Blob([text],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
+ function dateFields(){const t=today();return `<label>From (IST)<input id="from" type="date" value="${t.slice(0,8)}01"></label><label>Through (IST)<input id="to" type="date" value="${t}"></label><label>Period<select id="period"><option value="month">This month</option><option value="today">Today</option><option value="yesterday">Yesterday</option><option value="week">Last 7 days</option><option value="lastmonth">Last month</option><option value="fy">Financial year</option><option value="all">All dates</option><option value="custom">Custom</option></select></label>`;}
+ function wireDates(callback){$('period').onchange=()=>{let start=today(),end=today();const p=$('period').value,d=new Date(start+'T00:00:00Z');if(p==='custom')return;if(p==='month')start=start.slice(0,8)+'01';if(p==='today'){}if(p==='yesterday'){start=end=new Date(d-86400000).toISOString().slice(0,10);}if(p==='week')start=new Date(d-6*86400000).toISOString().slice(0,10);if(p==='lastmonth'){start=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()-1,1)).toISOString().slice(0,10);end=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),0)).toISOString().slice(0,10);}if(p==='fy')start=(d.getUTCFullYear()-(d.getUTCMonth()<3?1:0))+'-04-01';if(p==='all')start=end='';$('from').value=start;$('to').value=end;callback();};for(const id of ['from','to'])$(id).onchange=()=>{$('period').value='custom';callback();};}
+ function range(){const from=$('from')?.value,to=$('to')?.value;const start=from?Date.parse(from+'T00:00:00+05:30'):-Infinity,end=to?Date.parse(to+'T00:00:00+05:30')+86400000:Infinity;if(start>=end)throw Error('The end date must be on or after the start date.');return{start,end,label:`${from||'Beginning'} through ${to||'Today'} (IST)`};}
+ const inRange=(v,r)=>v&&Date.parse(v)>=r.start&&Date.parse(v)<r.end;
+ async function logs(entity,id){if(!can('audit'))throw Error('Activity-log permission is required.');modal('Activity history','<p id="log-list">Loading…</p><button id="more-logs" hidden>Load earlier</button>');let cursor=null;async function next(){const r=await api('audit.list',{entity,entity_id:String(id),limit:50,...(cursor?{cursor}:{})});const html=(r.items||[]).map(x=>`<div class="log"><b>${esc(x.action)}</b><p class="muted">${esc(date(x.time))} · ${esc(x.actor_role)} #${esc(x.actor_id)}</p><p>${esc(x.note)}</p><pre>${esc(JSON.stringify(x.changes,null,2))}</pre></div>`).join('')||'<p>No activity yet.</p>';if(!cursor)$('log-list').innerHTML=html;else$('log-list').insertAdjacentHTML('beforeend',html);cursor=r.next_cursor;$('more-logs').hidden=!cursor;}$('more-logs').onclick=()=>next().catch(error);await next();}
+ async function notifications(){const context=await api('push.context');if(!context.enabled)throw Error('Store notifications are not enabled yet.');if(native()){window.AppInventor?.setWebViewString(JSON.stringify({type:'push-login',app_id:context.app_id,external_id:context.push_alias,device_id:device()}));toast('Complete notification permission in the Android app.');return;}
+  if(!os){window.OneSignalDeferred=window.OneSignalDeferred||[];const ready=new Promise((resolve,reject)=>{window.OneSignalDeferred.push(async instance=>{try{await instance.init({appId:context.app_id,serviceWorkerPath:new URL('OneSignalSDKWorker.js',location.href).pathname.replace(/^\//,''),serviceWorkerParam:{scope:new URL('.',location.href).pathname},notifyButton:{enable:false}});os=instance;resolve();}catch(e){reject(e);}});});await loadScript('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js');await ready;}
+  await os.login(context.push_alias);await os.Notifications.requestPermission();if(!os.Notifications.permission)throw Error('Allow notifications in your browser settings.');await os.User.PushSubscription.optIn();for(let i=0;i<5;i++){const id=os.User.PushSubscription.id;if(id){try{await api('push.register',{subscription_id:id,device_id:device()});profile=await api('session.me');A.profile=profile;toast('Notifications enabled');return;}catch(e){if(i===4)throw e;}}await sleep(1500);}throw Error('Subscription is still preparing. Try again shortly.');
+ }
+ window.ONenessBridge=async payload=>{try{const x=typeof payload==='string'?JSON.parse(payload):payload;if(x.type!=='push-subscription'||!profile)return;await api('push.register',{subscription_id:x.subscription_id,device_id:device()});toast('Android notifications enabled');}catch(e){error(e);}};
+ Object.assign(A,{$,esc,money,date,today,paise,read,write,sleep,staff,approved,can,device,native,toast,error,fail,api,all,init,start,badge,header,cards,table,modal,form,print,csv,dateFields,wireDates,range,inRange,logs,notifications});return A;
+})();
+</script>
+<script>
+(async()=>{
+const runtime=document.createElement("script");runtime.textContent=document.getElementById("oneness-core").textContent;document.body.append(runtime);
+const initialHash=new URLSearchParams(location.hash.slice(1));
+const callbackError=initialHash.get('error_description');
+let recovery=initialHash.get('type')==='recovery';
+const A=await App.init('index'),{$,esc}=A;
+const OTP_KEY='oneness-otp',RESEND_DELAY=60000;
+let mode='login',entering=false,authBusy=false,recoverySession=false,appSessionStarted=false,otp=null,timer=null;
+function message(text,bad=false){const el=$('auth-message');if(!el){A.toast(text);return;}el.textContent=text;el.className='notice'+(bad?' error':'');el.hidden=false;}
+function authFailure(e){
+ if(e.status===429||/rate.limit|too many/i.test(e.message||''))return 'Too many attempts. Please wait before requesting another code.';
+ if(/hook|email delivery|email service/i.test(e.message||''))return 'We could not complete your email request. Please try again later or contact the store owner.';
+ return e.message||'The request could not be completed.';
+}
+function stopTimer(){if(timer)clearInterval(timer);timer=null;}
+function saveOtp(){try{if(otp)sessionStorage.setItem(OTP_KEY,JSON.stringify(otp));else sessionStorage.removeItem(OTP_KEY);}catch{}}
+function clearOtp(){otp=null;saveOtp();stopTimer();}
+function readOtp(){try{const p=JSON.parse(sessionStorage.getItem(OTP_KEY)||'null');if(p&&['signup','recovery'].includes(p.purpose)&&typeof p.email==='string'&&p.email.length<=254&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email)&&Number.isFinite(p.requestedAt)&&Date.now()-p.requestedAt<86400000&&Number.isFinite(p.nextResend))return p;}catch{}return null;}
+function beginOtp(email,purpose,sent=true){otp={email:email.trim(),purpose,requestedAt:Date.now(),nextResend:sent?Date.now()+RESEND_DELAY:0};saveOtp();renderOtp();}
+function tick(){const button=$('resend-otp');if(!button||!otp)return;const seconds=Math.max(0,Math.ceil((otp.nextResend-Date.now())/1000));button.disabled=authBusy||seconds>0;button.textContent=seconds?`Resend in ${seconds}s`:'Resend code';}
+async function requestCode(p){
+ const result=p.purpose==='recovery'?await A.client.auth.resetPasswordForEmail(p.email):await A.client.auth.resend({type:'signup',email:p.email});
+ if(result.error)throw result.error;
+}
+async function resendCode(){
+ if(!otp||authBusy||otp.nextResend>Date.now())return;
+ const current=otp;authBusy=true;current.nextResend=Date.now()+RESEND_DELAY;saveOtp();tick();$('verify-otp').disabled=true;
+ try{await requestCode(current);current.requestedAt=Date.now();saveOtp();message('If this email has an eligible account, a new code will arrive. Use the newest code.');}
+ catch(e){message(authFailure(e),true);}
+ finally{authBusy=false;if($('verify-otp'))$('verify-otp').disabled=false;tick();}
+}
+function renderOtp(){
+ stopTimer();mode='otp';
+ $('auth-box').innerHTML=`<a class="brand" href="index.html">ONeness</a><p class="eyebrow">${otp.purpose==='recovery'?'Password recovery':'Email verification'}</p><h1>Enter your code</h1><p class="muted">Enter the code sent to <strong>${esc(otp.email)}</strong>.</p><form id="otp-form"><label for="otp-code">Email verification code</label><input id="otp-code" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,10}" minlength="6" maxlength="10" required aria-describedby="otp-help" style="font-size:26px;letter-spacing:.2em;text-align:center;width:100%;margin:8px 0 12px;border-color:var(--accent)"><p class="muted" id="otp-help">Use the newest email. Codes expire and can only be used once.</p><button class="primary" id="verify-otp" style="width:100%">Verify code</button><p class="notice" id="auth-message" role="status" hidden></p></form><div class="row" style="margin-top:22px"><button class="small" id="resend-otp">Resend code</button><button class="small" id="otp-back">Back to sign in</button></div><p class="muted" style="font-size:13px;margin-top:22px">${otp.purpose==='signup'?'Email verification is the first step. Your admin account will still need backend approval.':'After verification, you can choose a new password.'}</p>`;
+ $('otp-code').oninput=e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,10);};$('resend-otp').onclick=resendCode;
+ $('otp-back').onclick=()=>{if(authBusy)return;clearOtp();recovery=false;recoverySession=false;render('login');};$('otp-form').onsubmit=async event=>{
+  event.preventDefault();if(authBusy||!otp)return;
+  const token=$('otp-code').value.trim();if(!/^\d{6,10}$/.test(token)){message('Enter the numeric code from your email.',true);return;}
+  const current=otp;authBusy=true;$('verify-otp').disabled=true;$('otp-back').disabled=true;tick();
+  try{
+   const result=await A.client.auth.verifyOtp({email:current.email,token,type:current.purpose==='recovery'?'recovery':'email'});
+   if(result.error)throw result.error;
+   if(!result.data?.session)throw Error('Verification did not create a session. Request a new code.');
+   clearOtp();history.replaceState({},'',location.pathname);
+   if(current.purpose==='recovery'){recovery=true;recoverySession=true;render('reset');}
+   else{recovery=false;await enter();}
+  }catch(e){message(e.code==='otp_expired'?'That code is invalid or expired. Use the newest email or request another code.':e.message||'Verification failed.',true);if($('otp-code')){$('otp-code').value='';$('otp-code').focus();}}
+  finally{authBusy=false;if($('verify-otp'))$('verify-otp').disabled=false;if($('otp-back'))$('otp-back').disabled=false;tick();}
+ };
+ tick();timer=setInterval(tick,1000);$('otp-code').focus();
+}
+async function signout(scope='local'){if(appSessionStarted){try{await A.api('session.end');}catch{}}const r=await A.client.auth.signOut({scope});if(r.error)throw r.error;appSessionStarted=false;clearOtp();recovery=false;recoverySession=false;history.replaceState({},'',location.pathname);render('login');}
+function waiting(p,signedIn=true){
+ stopTimer();mode='waiting';const blocked=p.status==='blocked',confirmed=p.email_confirmed===true,verified=p.status==='verified';
+ const title=blocked?'Account blocked':!confirmed?'Confirm your email':verified?'Verification complete':'Unverified';
+ $('auth-box').innerHTML=`<a class="brand" href="index.html">ONeness</a><p class="eyebrow">Admin access</p><h1>${title}</h1><p class="muted">${esc(p.email||'')}</p><section class="approval-card"><span class="badge ${blocked?'blocked':verified?'verified':'unverified'} approval-state">${blocked?'Blocked':verified?'Verified':'Unverified'}</span><ol><li>Email confirmation: <b>${confirmed?'Complete':'Required'}</b></li><li>Admin verification: <b>${blocked?'Blocked':verified?'Approved':'Awaiting approval'}</b></li></ol><p>${blocked?'Contact the store owner about this account.':!confirmed?'Request a code and verify your email here. Admin approval is required separately.':'Your email is confirmed. The backend administrator must verify your account before you can open the dashboard.'}</p></section><p class="notice" id="auth-message" role="status" hidden></p><div class="row" style="margin-top:24px">${!confirmed&&!blocked?'<button class="primary" id="waiting-code">Send verification code</button>':''}${signedIn?'<button class="primary" id="check-approval">Check verification</button><button id="waiting-signout">Sign out</button>':'<button id="back-login">Back to sign in</button>'}</div>`;
+ if($('waiting-code'))$('waiting-code').onclick=()=>{beginOtp(p.email,'signup',false);resendCode();};
+ if(signedIn){$('check-approval').onclick=async()=>{if(entering)return;entering=true;$('check-approval').disabled=true;try{const next=await A.api('session.me');if(A.approved(next)){location.replace('dashboard.html');return;}waiting(next);message(next.status==='unverified'?'Your account is still unverified. Please wait for approval.':'Access requirements have not been completed.');}catch(e){message(e.message,true);}finally{entering=false;if($('check-approval'))$('check-approval').disabled=false;}};$('waiting-signout').onclick=()=>signout().catch(A.error);}else$('back-login').onclick=()=>render('login');
+}
+function denied(text){stopTimer();mode='denied';$('auth-box').innerHTML=`<a class="brand" href="index.html">ONeness</a><h1>Admin access required</h1><p class="muted">${esc(text)}</p><p>This panel is available to verified administrators.</p><button class="primary" id="denied-signout">Use another account</button><p id="auth-message" role="status" hidden></p>`;$('denied-signout').onclick=()=>signout().catch(A.error);}
+function render(next){
+ stopTimer();if(mode==='reset'&&next==='login'){recovery=false;recoverySession=false;history.replaceState({},'',location.pathname);}mode=next;
+ const titles={login:['Admin sign in','Sign in to manage your ONeness store.'],signup:['Create an admin account','Verify your email with a code, then wait for backend approval.'],verify:['Verify your email','Enter your registered email to request a new verification code.'],forgot:['Reset your password','We will email you a code to enter on this screen.'],reset:['Choose a new password','Use at least 10 characters. Changing your password does not change verification status.']};const [title,description]=titles[mode];
+ $('auth-box').innerHTML=`<a class="brand" href="index.html">ONeness</a><p class="eyebrow">Administration</p><h1>${title}</h1><p class="muted">${description}</p><form id="auth-form">${mode==='signup'?'<label>Your name<input name="name" required maxlength="120" autocomplete="name"></label><label>Team / department (optional)<input name="business_name" maxlength="180" autocomplete="organization"></label><label>Phone<input name="phone" type="tel" required maxlength="30" autocomplete="tel"></label>':''}${mode!=='reset'?'<label>Email<input name="email" type="email" required maxlength="254" autocomplete="email"></label>':''}${['login','signup','reset'].includes(mode)?`<label>Password<input name="password" type="password" minlength="${mode==='login'?1:10}" required autocomplete="${mode==='login'?'current-password':'new-password'}"></label>`:''}<button class="primary" id="submit-auth" style="width:100%">${({login:'Sign in',signup:'Create admin account',verify:'Send verification code',forgot:'Send reset code',reset:'Save password'})[mode]}</button><p class="notice" id="auth-message" role="status" hidden></p></form><div class="row" style="margin-top:22px">${mode==='login'?'<button class="small" data-mode="signup">Create admin account</button><button class="small" data-mode="forgot">Forgot password?</button><button class="small" data-mode="verify">Verify email</button>':'<button class="small" data-mode="login">Back to sign in</button>'}</div>`;
+ for(const b of document.querySelectorAll('[data-mode]'))b.onclick=()=>{if(!authBusy)render(b.dataset.mode);};
+ $('auth-form').onsubmit=async event=>{
+  event.preventDefault();if(authBusy)return;
+  const action=mode,values=Object.fromEntries(new FormData(event.currentTarget));if(values.email)values.email=values.email.trim();authBusy=true;$('submit-auth').disabled=true;$('auth-message').hidden=true;
+  try{let r;
+   if(action==='login'){
+    r=await A.client.auth.signInWithPassword({email:values.email,password:values.password});
+    if(r.error){if(r.error.code==='email_not_confirmed'){beginOtp(values.email,'signup',false);message('Verify your email before signing in. Press Resend code to request one.');}else throw r.error;}
+    else{clearOtp();await enter();}
+   }
+   if(action==='signup'){
+    r=await A.client.auth.signUp({email:values.email,password:values.password,options:{data:{name:values.name,phone:values.phone,business_name:values.business_name}}});
+    if(r.error)throw r.error;
+    if(r.data.session){await A.client.auth.signOut({scope:'local'});throw Error('Email verification is unavailable. Please contact the store owner.');}
+    beginOtp(values.email,'signup');
+   }
+   if(action==='forgot'||action==='verify'){
+    const purpose=action==='forgot'?'recovery':'signup';await requestCode({email:values.email,purpose});beginOtp(values.email,purpose);
+    message('If this email has an eligible account, a code will arrive shortly.');
+   }
+   if(action==='reset'){
+    const{data:{session}}=await A.client.auth.getSession();if(!session||!recoverySession)throw Error('Verify a password-reset code before choosing a new password.');
+    r=await A.client.auth.updateUser({password:values.password});if(r.error)throw r.error;
+    await signout('global');message('Password saved. Sign in with your new password.');
+   }
+  }catch(e){message(authFailure(e),true);}finally{authBusy=false;if($('submit-auth'))$('submit-auth').disabled=false;tick();}
+ };
+}
+async function enter(){if(entering||recovery)return;entering=true;try{const p=await A.start();appSessionStarted=true;if(A.approved(p))location.replace('dashboard.html');else if(A.staff(p))waiting(p);else denied('This account is not an administrator.');}catch(e){if(e.code==='ADMIN_ONLY')denied('This account is registered as a retailer.');else message(e.message,true);}finally{entering=false;}}
+A.client.auth.onAuthStateChange((event,session)=>{
+ // Never call another Auth method directly inside this callback.
+ if(event==='PASSWORD_RECOVERY'){recovery=true;recoverySession=true;if(!authBusy)setTimeout(()=>render('reset'),0);}
+ else if(event==='SIGNED_IN'&&session&&!authBusy&&!recovery&&mode!=='otp')setTimeout(()=>enter(),0);
+});
+const{data:{session}}=await A.client.auth.getSession();
+if(session&&recovery){recoverySession=true;render('reset');}
+else if(session)await enter();
+else if((otp=readOtp()))renderOtp();
+else if(new URLSearchParams(location.search).get('mode')==='reset')render('forgot');
+else render('login'); /* Initialize Login Form */
+if(callbackError)message(callbackError,true);
+const notice=sessionStorage.getItem('oneness-message');if(notice){message(notice,true);sessionStorage.removeItem('oneness-message');}
+
+})().catch(e=>{if(window.App)App.fail(e);else{document.body.textContent="Could not load ONeness. Serve all HTML files together over HTTP/HTTPS. "+e.message;}});
+</script>
+</body>
+</html>
