@@ -658,6 +658,431 @@ body.products-app-page #view{position:relative;min-width:0}
  .erp-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:42px!important}.erp-kpi{height:42px!important;min-height:42px!important}.mobile-product .plan-stack{grid-template-columns:1fr!important}.mobile-product .plan-chip:nth-child(2){display:none!important}.products-mobile-brand-copy span{display:none!important}
 }
 
+
+/* ==========================================================
+   CLEAN UI PASS · REMOVE VISUAL ARTIFACTS / FIX PROFILE
+   ========================================================== */
+
+/* Remove decorative pseudo-elements that can render as stray circles/lines */
+body.products-app-page .heading:after,
+.erp-kpi:after{
+ content:none!important;
+ display:none!important
+}
+body.products-app-page .heading{
+ overflow:hidden!important;
+ background:#fffdf8!important;
+ border:1px solid #e5dac4!important;
+ box-shadow:0 4px 16px rgba(67,10,17,.035)!important
+}
+.erp-kpi{
+ overflow:hidden!important;
+ background:#fffdf8!important;
+ box-shadow:none!important
+}
+
+/* Desktop sidebar profile: compact, predictable and image-safe */
+.products-side-profile{
+ display:grid!important;
+ grid-template-columns:30px minmax(0,1fr)!important;
+ align-items:center!important;
+ gap:8px!important;
+ width:100%!important;
+ min-height:46px!important;
+ padding:7px 8px!important;
+ margin:0!important;
+ border:1px solid rgba(237,203,120,.18)!important;
+ border-radius:9px!important;
+ background:rgba(255,249,229,.055)!important;
+ overflow:hidden!important
+}
+.products-side-avatar{
+ display:grid!important;
+ place-items:center!important;
+ flex:0 0 30px!important;
+ width:30px!important;
+ min-width:30px!important;
+ max-width:30px!important;
+ height:30px!important;
+ min-height:30px!important;
+ max-height:30px!important;
+ aspect-ratio:1/1!important;
+ padding:0!important;
+ margin:0!important;
+ border:1px solid rgba(244,211,128,.42)!important;
+ border-radius:50%!important;
+ overflow:hidden!important;
+ background:#7b2330!important;
+ color:#ffe9a9!important;
+ font:700 12px/1 Georgia,"Times New Roman",serif!important;
+ line-height:30px!important
+}
+.products-side-avatar img{
+ display:block!important;
+ width:30px!important;
+ min-width:30px!important;
+ max-width:30px!important;
+ height:30px!important;
+ min-height:30px!important;
+ max-height:30px!important;
+ object-fit:cover!important;
+ object-position:center!important;
+ border-radius:50%!important;
+ margin:0!important;
+ padding:0!important;
+ transform:none!important
+}
+.products-side-profile-copy{
+ min-width:0!important;
+ overflow:hidden!important;
+ line-height:1.15!important
+}
+.products-side-profile-copy b{
+ display:block!important;
+ max-width:100%!important;
+ overflow:hidden!important;
+ text-overflow:ellipsis!important;
+ white-space:nowrap!important;
+ color:#fff6e5!important;
+ font-size:9px!important;
+ font-weight:750!important
+}
+.products-side-profile-copy span{
+ display:block!important;
+ max-width:100%!important;
+ margin-top:3px!important;
+ overflow:hidden!important;
+ text-overflow:ellipsis!important;
+ white-space:nowrap!important;
+ color:#d7c5a8!important;
+ font-size:6px!important;
+ letter-spacing:.55px!important
+}
+.products-side-signout{
+ min-height:30px!important;
+ height:30px!important;
+ padding:4px 8px!important;
+ border-radius:8px!important;
+ font-size:8px!important
+}
+
+/* Keep logo clean and free of inherited decorative pseudo marks */
+.side .brand:before,
+.side .brand:after,
+.products-side-copy:before,
+.products-side-copy:after,
+.products-mobile-brand:before,
+.products-mobile-brand:after{
+ content:none!important;
+ display:none!important
+}
+.products-side-logo{
+ display:block!important;
+ width:38px!important;
+ min-width:38px!important;
+ max-width:38px!important;
+ height:30px!important;
+ object-fit:contain!important;
+ object-position:center!important;
+ margin:0!important;
+ filter:none!important
+}
+
+/* Clean card/table visual system */
+.erp-tabs,
+.erp-toolbar,
+.erp-table-wrap,
+.inventory-ledger-shell,
+.editor-section,
+.mobile-product{
+ box-shadow:none!important
+}
+.erp-tabs{
+ border-color:#e5dac4!important;
+ background:#fffaf0!important
+}
+.erp-tab.active{
+ box-shadow:none!important
+}
+.erp-table-wrap{
+ border-color:#e4dac6!important
+}
+.erp-table th{
+ background:#f5ecda!important
+}
+.erp-table td{
+ background-clip:padding-box!important
+}
+.product-thumb,
+.product-placeholder{
+ flex:none!important;
+ display:block;
+ overflow:hidden!important
+}
+.product-thumb{
+ object-fit:contain!important;
+ object-position:center!important
+}
+
+/* Desktop action alignment */
+.erp-actions{
+ align-items:stretch!important
+}
+.erp-actions button{
+ margin:0!important
+}
+
+/* Mobile top bar: smaller profile and balanced controls */
+@media(max-width:850px){
+ .products-mobile-appbar{
+  height:calc(48px + env(safe-area-inset-top))!important;
+  padding:env(safe-area-inset-top) 9px 0!important;
+  gap:8px!important
+ }
+ .products-mobile-brand{
+  min-width:0!important;
+  max-width:calc(100% - 112px)!important;
+  gap:6px!important
+ }
+ .products-mobile-brand img{
+  display:block!important;
+  width:31px!important;
+  min-width:31px!important;
+  max-width:31px!important;
+  height:24px!important;
+  object-fit:contain!important;
+  filter:none!important
+ }
+ .products-mobile-brand-copy{
+  min-width:0!important;
+  overflow:hidden!important
+ }
+ .products-mobile-brand-copy b{
+  font-size:11px!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important
+ }
+ .products-mobile-brand-copy span{
+  font-size:5px!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important
+ }
+ .products-mobile-top-actions{
+  flex:0 0 auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:4px!important
+ }
+ .products-mobile-icon{
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 30px!important;
+  width:30px!important;
+  min-width:30px!important;
+  max-width:30px!important;
+  height:30px!important;
+  min-height:30px!important;
+  max-height:30px!important;
+  padding:0!important;
+  margin:0!important;
+  border-radius:9px!important;
+  font-size:14px!important;
+  line-height:1!important;
+  overflow:hidden!important
+ }
+ .products-mobile-avatar{
+  border-radius:50%!important;
+  background:#7b2330!important
+ }
+ .products-mobile-avatar img{
+  display:block!important;
+  width:30px!important;
+  min-width:30px!important;
+  max-width:30px!important;
+  height:30px!important;
+  min-height:30px!important;
+  max-height:30px!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  border-radius:50%!important;
+  padding:0!important;
+  margin:0!important;
+  transform:none!important
+ }
+
+ /* Clean the mobile content: no floating ornaments/artifacts */
+ body.products-app-page .content{
+  padding-top:calc(51px + env(safe-area-inset-top))!important
+ }
+ .erp-kpi:before,
+ .mobile-product:before,
+ .mobile-product:after,
+ .inventory-ledger-shell:before,
+ .inventory-ledger-shell:after{
+  content:none!important;
+  display:none!important
+ }
+ .erp-kpi,
+ .mobile-product,
+ .inventory-ledger-shell{
+  overflow:hidden!important
+ }
+
+ /* More/account sheet profile */
+ .products-more-profile{
+  grid-template-columns:32px minmax(0,1fr)!important;
+  gap:8px!important;
+  min-height:48px!important;
+  padding:8px!important;
+  border-radius:9px!important
+ }
+ .products-more-avatar{
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 32px!important;
+  width:32px!important;
+  min-width:32px!important;
+  max-width:32px!important;
+  height:32px!important;
+  min-height:32px!important;
+  max-height:32px!important;
+  padding:0!important;
+  margin:0!important;
+  border-radius:50%!important;
+  overflow:hidden!important;
+  font-size:12px!important
+ }
+ .products-more-avatar img{
+  display:block!important;
+  width:32px!important;
+  min-width:32px!important;
+  max-width:32px!important;
+  height:32px!important;
+  min-height:32px!important;
+  max-height:32px!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  border-radius:50%!important;
+  padding:0!important;
+  margin:0!important
+ }
+ .products-more-copy{
+  min-width:0!important;
+  overflow:hidden!important
+ }
+ .products-more-copy b{
+  display:block!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+  text-overflow:ellipsis!important;
+  font-size:9px!important
+ }
+ .products-more-copy span{
+  display:block!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+  text-overflow:ellipsis!important;
+  font-size:6px!important
+ }
+
+ /* More sheet is clean, no accidental overflow */
+ .products-mobile-more{
+  overflow:hidden!important
+ }
+ .products-more-links{
+  overflow:auto!important;
+  max-height:48dvh!important
+ }
+
+ /* Product cards: predictable alignment */
+ .mobile-product{
+  border-radius:9px!important;
+  padding:8px!important
+ }
+ .mobile-product-head{
+  grid-template-columns:42px minmax(0,1fr) auto!important;
+  align-items:start!important;
+  gap:7px!important
+ }
+ .mobile-product .product-thumb,
+ .mobile-product .product-placeholder{
+  width:42px!important;
+  min-width:42px!important;
+  max-width:42px!important;
+  height:42px!important;
+  min-height:42px!important;
+  max-height:42px!important;
+  border-radius:7px!important
+ }
+ .mobile-product-head>div{
+  min-width:0!important
+ }
+ .mobile-product-head>div>b{
+  font-size:8.2px!important;
+  line-height:1.2!important
+ }
+ .mobile-product .badge{
+  align-self:start!important;
+  max-width:58px!important
+ }
+ .mobile-metrics{
+  align-items:stretch!important
+ }
+ .mobile-metric{
+  min-height:39px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important
+ }
+ .mobile-product>.toolbar-actions{
+  align-items:stretch!important
+ }
+ .mobile-product>.toolbar-actions button{
+  height:auto!important;
+  min-height:30px!important
+ }
+
+ /* Bottom nav visual reset */
+ .products-mobile-bottom{
+  overflow:hidden!important
+ }
+ .products-mobile-nav:before,
+ .products-mobile-nav:after{
+  content:none!important;
+  display:none!important
+ }
+}
+
+/* Extra narrow phones */
+@media(max-width:390px){
+ .products-mobile-brand{
+  max-width:calc(100% - 106px)!important
+ }
+ .products-mobile-brand-copy span{
+  display:none!important
+ }
+ .products-mobile-icon{
+  flex-basis:28px!important;
+  width:28px!important;
+  min-width:28px!important;
+  max-width:28px!important;
+  height:28px!important;
+  min-height:28px!important;
+  max-height:28px!important
+ }
+ .products-mobile-avatar img{
+  width:28px!important;
+  min-width:28px!important;
+  max-width:28px!important;
+  height:28px!important;
+  min-height:28px!important;
+  max-height:28px!important
+ }
+}
+
 `;
 document.head.append(css);
 
@@ -687,7 +1112,7 @@ function upgradeProductsShell(){
  const bottom=document.querySelector('.side .bottom'),logout=document.getElementById('logout');
  if(bottom){
   const initial=String(A.profile?.name||'A').trim().charAt(0).toUpperCase()||'A';
-  const avatar=A.profile?.avatar_url?`<img src="${esc(A.profile.avatar_url)}" alt="">`:esc(initial);
+  const avatar=A.profile?.avatar_url?`<img src="${esc(A.profile.avatar_url)}" alt="Profile photo" loading="eager" decoding="async" onerror="this.remove();this.parentElement.textContent='${esc(initial)}'">`:esc(initial);
   bottom.innerHTML=`<div class="products-side-profile"><div class="products-side-avatar">${avatar}</div><div class="products-side-profile-copy"><b>${esc(A.profile?.name||'Administrator')}</b><span>${esc(A.profile?.role||'admin')}</span></div></div>`;
   if(logout){logout.className='products-side-signout';bottom.append(logout)}
  }
@@ -702,7 +1127,7 @@ function buildProductsMobileChrome(){
  for(const k of preferred){const x=links.find(v=>key(v)===k);if(x&&!primary.includes(x))primary.push(x)}
  for(const x of links){if(primary.length>=4)break;if(!primary.includes(x)&&key(x)!=='settings')primary.push(x)}
  const initial=String(A.profile?.name||'A').trim().charAt(0).toUpperCase()||'A';
- const avatar=A.profile?.avatar_url?`<img src="${esc(A.profile.avatar_url)}" alt="">`:esc(initial);
+ const avatar=A.profile?.avatar_url?`<img src="${esc(A.profile.avatar_url)}" alt="Profile photo" loading="eager" decoding="async" onerror="this.remove();this.parentElement.textContent='${esc(initial)}'">`:esc(initial);
 
  const appbar=document.createElement('header');
  appbar.className='products-mobile-appbar';
