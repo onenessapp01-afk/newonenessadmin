@@ -954,8 +954,17 @@ async function renderSplashScreens(el){
  let rows=[];
  try{rows=await splashRows()}
  catch(e){
+  const code=String(e?.code||'');
+  const raw=String(e?.message||e||'Could not load Splash Screens.');
+  const missing=code==='42P01'||/relation .*retailer_splash_posters.* does not exist/i.test(raw);
+  const permission=code==='42501'||/permission denied|row-level security/i.test(raw);
+  const help=missing
+    ?'Splash Screens database objects are missing. Run retailer-splash-backend.sql once, then reopen this tab.'
+    :permission
+      ?'Splash Screens is installed, but this signed-in admin does not currently have permission to manage it. Use the corrected Splash RLS migration / SQL file.'
+      :'Splash Screens is installed but could not be loaded. Database message: '+raw;
   el.innerHTML=`<div class="splash-head"><div><h2>Splash Screens</h2><p>Upload promotional posters to ImgBB and target them to the right retailer audience.</p></div></div>
-  <div class="notice error">Splash Screens backend is not installed yet. Run <b>retailer-splash-backend.sql</b> once in Supabase, then reopen this setting.</div>`;
+  <div class="notice error">${esc(help)}</div>`;
   return;
  }
  el.innerHTML=`<div class="splash-head"><div><h2>Splash Screens</h2><p>Manage the posters customers see when they enter ONeness. Posters are stored on ImgBB; only the image URL and display rules are stored in Supabase.</p></div><button id="new-splash" class="primary">+ Add poster</button></div>
