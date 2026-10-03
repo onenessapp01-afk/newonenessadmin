@@ -849,6 +849,113 @@ body.order-console-page #view{
  }
 }
 
+
+/* ==========================================================
+   INDIVIDUAL ORDER DOCUMENTS
+   ========================================================== */
+.documents-card h3{
+ display:flex!important;
+ align-items:center!important;
+ gap:7px!important;
+ margin-bottom:9px!important
+}
+.documents-card h3:before{
+ content:"";
+ width:3px;
+ height:15px;
+ border-radius:4px;
+ background:#c8942d
+}
+.doc-grid{
+ display:grid!important;
+ grid-template-columns:1fr 1fr!important;
+ gap:7px!important
+}
+.doc-action{
+ width:100%!important;
+ min-width:0!important;
+ min-height:62px!important;
+ display:grid!important;
+ grid-template-columns:30px minmax(0,1fr)!important;
+ align-items:center!important;
+ justify-content:stretch!important;
+ gap:8px!important;
+ padding:8px!important;
+ margin:0!important;
+ border:1px solid #e5d8bc!important;
+ border-radius:9px!important;
+ background:#fffaf0!important;
+ color:#4b3027!important;
+ text-align:left!important;
+ box-shadow:none!important
+}
+.doc-action:hover{
+ border-color:#c8942d!important;
+ background:#fff4d4!important;
+ transform:none!important
+}
+.doc-action-icon{
+ display:grid;
+ place-items:center;
+ width:30px;
+ height:30px;
+ border-radius:8px;
+ background:#68141d;
+ color:#ffe5a0;
+ font-size:14px;
+ line-height:1
+}
+.doc-action-copy{
+ display:block;
+ min-width:0
+}
+.doc-action-copy b{
+ display:block;
+ margin:0;
+ color:#4a1519;
+ font-size:8px;
+ line-height:1.2;
+ white-space:normal
+}
+.doc-action-copy small{
+ display:block;
+ margin-top:3px;
+ color:#85756a;
+ font-size:5.8px;
+ line-height:1.25;
+ white-space:normal
+}
+.doc-action.receipt .doc-action-icon{background:#805b18}
+.doc-action.packing .doc-action-icon{background:#6d3441}
+.doc-action.label .doc-action-icon{background:#4c3830}
+
+@media(max-width:850px){
+ .documents-card{overflow:visible!important}
+ .doc-grid{
+  grid-template-columns:1fr 1fr!important;
+  gap:5px!important
+ }
+ .doc-action{
+  min-height:55px!important;
+  grid-template-columns:26px minmax(0,1fr)!important;
+  gap:6px!important;
+  padding:6px!important
+ }
+ .doc-action-icon{
+  width:26px!important;
+  height:26px!important;
+  border-radius:7px!important;
+  font-size:12px!important
+ }
+ .doc-action-copy b{font-size:6.8px!important}
+ .doc-action-copy small{font-size:4.8px!important}
+}
+
+@media(max-width:370px){
+ .doc-grid{grid-template-columns:1fr!important}
+ .doc-action{min-height:48px!important}
+}
+
 `;
 document.head.append(style);
 
@@ -1529,23 +1636,365 @@ function renderDetail(d){
  <section class="card"><h3>Payment record</h3>${payRecord}<div class="mini-actions">${collectOK&&o.status!=='cancelled'&&o.payment_method!=='online'?`<button id="detail-payment" class="pay-btn">${o.payment_record_type?'Edit payment record':'Record payment'}</button>`:''}</div></section>
  <section class="card"><h3>Operations</h3><div class="info"><div><span>Payment method</span><strong>${esc((o.payment_method||'—').toUpperCase())}</strong></div><div><span>Payment status</span><strong>${esc(o.payment_status||'—')}</strong></div><div><span>Tracking</span><strong>${esc(o.tracking||'Not dispatched')}</strong></div><div><span>Updated</span><strong>${esc(date(o.updated_at))}</strong></div></div></section>
  ${d.show_amounts?`<section class="card"><h3>Financial summary</h3><div class="fin"><div class="fr"><span>Subtotal</span><b>${money(d.subtotal_paise)}</b></div><div class="fr"><span>Coupon ${d.coupon_code?esc(d.coupon_code):''}</span><b>− ${money(o.discount_paise||0)}</b></div><div class="fr"><span>Delivery</span><b>${Number(o.shipping_paise||0)?money(o.shipping_paise):'Free'}</b></div><div class="fr total"><span>Total</span><b>${money(o.total_paise)}</b></div><div class="fr"><span>MRP retail value</span><b>${money(o.mrp_total_paise)}</b></div><div class="fr profit"><span>Potential profit</span><b>${money(profit)} (${pct(profit,mrp)})</b></div></div></section>`:''}
- <section class="card"><h3>Print & documents</h3><div class="doc-grid"><button id="doc-summary">Order Summary</button>${d.show_amounts?'<button id="doc-receipt">Customer Receipt</button>':''}<button id="doc-pack">Packing Slip</button><button id="doc-label">Dispatch Label</button></div></section>
+ <section class="card documents-card"><h3>Print & documents</h3><div class="doc-grid">
+ <button id="doc-summary" class="doc-action summary" type="button"><span class="doc-action-icon">▤</span><span class="doc-action-copy"><b>Order Summary</b><small>Complete details for this order only</small></span></button>
+ ${d.show_amounts?'<button id="doc-receipt" class="doc-action receipt" type="button"><span class="doc-action-icon">₹</span><span class="doc-action-copy"><b>Customer Receipt</b><small>Customer-facing payment/order receipt</small></span></button>':''}
+ <button id="doc-pack" class="doc-action packing" type="button"><span class="doc-action-icon">□</span><span class="doc-action-copy"><b>Packing Slip</b><small>Products and quantities for packing</small></span></button>
+ <button id="doc-label" class="doc-action label" type="button"><span class="doc-action-icon">⌂</span><span class="doc-action-copy"><b>Dispatch Label</b><small>Delivery label for this order only</small></span></button>
+ </div></section>
  <section class="card"><h3>Activity timeline</h3><div class="events">${eventHtml}</div></section>
  </aside></div>`;
  const ds=$('detail-status');if(ds)ds.onchange=()=>{const n=ds.value;ds.value='';if(n)openStatusAction(o.id,n)};
  if($('detail-note'))$('detail-note').onclick=()=>editNote(o.id);
  if($('detail-payment'))$('detail-payment').onclick=()=>recordPayment(o.id);
  if($('copy-address'))$('copy-address').onclick=async()=>{await navigator.clipboard.writeText(fullAddress(d.address));A.toast('Address copied')};
- if($('doc-summary'))$('doc-summary').onclick=()=>printDoc(d,'summary');if($('doc-receipt'))$('doc-receipt').onclick=()=>printDoc(d,'receipt');if($('doc-pack'))$('doc-pack').onclick=()=>printDoc(d,'packing');if($('doc-label'))$('doc-label').onclick=()=>printDoc(d,'label')
+ if($('doc-summary'))$('doc-summary').onclick=()=>printOrderDocument(d,'summary');
+ if($('doc-receipt'))$('doc-receipt').onclick=()=>printOrderDocument(d,'receipt');
+ if($('doc-pack'))$('doc-pack').onclick=()=>printOrderDocument(d,'packing');
+ if($('doc-label'))$('doc-label').onclick=()=>printOrderDocument(d,'label');
+}
+function documentData(d){
+ const o=d.order||{},c=d.customer||{},items=Array.isArray(d.items)?d.items:[],addr=fullAddress(d.address);
+ return {
+  d,o,c,items,addr,
+  orderNo:`#ON${Number(o.id)}`,
+  status:esc(statusLabel(o.status)),
+  customer:esc(c.business_name||c.name||'Retailer'),
+  phone:d.show_contact&&c.phone?esc(c.phone):'',
+  tracking:esc(o.tracking||'Not assigned'),
+  created:esc(date(o.created_at)),
+  paymentMethod:esc((o.payment_method||'—').toUpperCase()),
+  paymentStatus:esc(o.payment_status||'—')
+ };
+}
+function documentHeader(x,title,subtitle=''){
+ return `<header class="doc-head">
+  <div class="brand-block">
+   <div class="brand-name">ONENESS GROUP</div>
+   <div class="brand-sub">Lakhpati Didi Program</div>
+   <div class="doc-title">${esc(title)}</div>
+   ${subtitle?`<div class="doc-subtitle">${esc(subtitle)}</div>`:''}
+  </div>
+  <div class="order-block">
+   <div class="order-no">${x.orderNo}</div>
+   <div class="order-date">${x.created}</div>
+   <div class="status-tag">${x.status}</div>
+  </div>
+ </header>`;
+}
+function customerBlock(x,label='Retailer / Customer'){
+ return `<section class="two-col">
+  <div class="info-box">
+   <span class="field-label">${esc(label)}</span>
+   <strong>${x.customer}</strong>
+   ${x.phone?`<small>${x.phone}</small>`:''}
+  </div>
+  <div class="info-box">
+   <span class="field-label">Delivery address</span>
+   <div class="address-text">${esc(x.addr||'Address not available')}</div>
+  </div>
+ </section>`;
+}
+function summaryItemsTable(x,showAmounts=true){
+ const rows=x.items.map((i,index)=>{
+  const qty=Number(i.qty||0),rate=Number(i.unit_price_paise||0),line=qty*rate;
+  return `<tr>
+   <td class="num">${index+1}</td>
+   <td><b>${esc(i.title||'Product')}</b></td>
+   <td class="center"><b>${qty}</b></td>
+   ${showAmounts&&x.d.show_amounts?`<td class="right">${money(rate)}</td><td class="right"><b>${money(line)}</b></td>`:''}
+  </tr>`;
+ }).join('');
+ const cols=showAmounts&&x.d.show_amounts
+  ?'<th class="right">Rate</th><th class="right">Amount</th>'
+  :'';
+ return `<table class="doc-table">
+  <thead><tr><th class="num">#</th><th>Product</th><th class="center">Qty</th>${cols}</tr></thead>
+  <tbody>${rows||`<tr><td colspan="${showAmounts&&x.d.show_amounts?5:3}" class="empty-doc">No products found.</td></tr>`}</tbody>
+ </table>`;
+}
+function financialBlock(x){
+ if(!x.d.show_amounts)return '';
+ const o=x.o;
+ return `<section class="totals">
+  <div><span>Subtotal</span><b>${money(x.d.subtotal_paise)}</b></div>
+  <div><span>Discount</span><b>− ${money(o.discount_paise||0)}</b></div>
+  <div><span>Delivery</span><b>${Number(o.shipping_paise||0)?money(o.shipping_paise):'Free'}</b></div>
+  <div class="grand"><span>Total</span><b>${money(o.total_paise)}</b></div>
+  <div><span>Payment</span><b>${x.paymentMethod} · ${x.paymentStatus}</b></div>
+  ${o.payment_record_type?`<div><span>Received via</span><b>${esc(payTypeLabel(o.payment_record_type))}</b></div>`:''}
+  ${o.payment_reference?`<div><span>Reference</span><b>${esc(o.payment_reference)}</b></div>`:''}
+ </section>`;
+}
+function orderSummaryHtml(d){
+ const x=documentData(d),o=x.o;
+ return `<main class="document summary-doc">
+  ${documentHeader(x,'Order Summary','Internal order overview')}
+  ${customerBlock(x)}
+  <section class="summary-meta">
+   <div><span>Payment method</span><b>${x.paymentMethod}</b></div>
+   <div><span>Payment status</span><b>${x.paymentStatus}</b></div>
+   <div><span>Tracking</span><b>${x.tracking}</b></div>
+   <div><span>Current status</span><b>${x.status}</b></div>
+  </section>
+  <section class="section">
+   <h2>Products</h2>
+   ${summaryItemsTable(x,true)}
+  </section>
+  ${financialBlock(x)}
+  <section class="notes-grid">
+   <div class="note-box"><span>Customer note</span><p>${esc(d.customer_note||'No customer note.')}</p></div>
+   <div class="note-box admin-note"><span>Internal admin note</span><p>${esc(d.internal_note||'No internal note.')}</p></div>
+  </section>
+  <footer class="doc-footer">Order summary for ${x.orderNo} only · Generated from ONeness Admin</footer>
+ </main>`;
+}
+function customerReceiptHtml(d){
+ const x=documentData(d),o=x.o;
+ return `<main class="document receipt-doc">
+  ${documentHeader(x,'Customer Receipt','Order acknowledgement & payment record')}
+  <section class="receipt-banner">
+   <div><span>Receipt for</span><b>${x.customer}</b></div>
+   <div class="receipt-total"><span>Order total</span><strong>${d.show_amounts?money(o.total_paise):'—'}</strong></div>
+  </section>
+  ${customerBlock(x,'Customer / Retailer')}
+  <section class="section">
+   <h2>Purchased items</h2>
+   ${summaryItemsTable(x,true)}
+  </section>
+  ${financialBlock(x)}
+  <section class="payment-proof">
+   <div><span>Payment method</span><b>${x.paymentMethod}</b></div>
+   <div><span>Payment status</span><b>${x.paymentStatus}</b></div>
+   ${o.payment_record_type?`<div><span>Recorded as</span><b>${esc(payTypeLabel(o.payment_record_type))}</b></div>`:''}
+   ${o.payment_reference?`<div><span>Transaction / reference</span><b>${esc(o.payment_reference)}</b></div>`:''}
+   ${o.payment_recorded_at?`<div><span>Recorded at</span><b>${esc(date(o.payment_recorded_at))}</b></div>`:''}
+  </section>
+  <div class="receipt-note">This is an order/customer receipt. It is not a GST tax invoice unless a separate GST invoice is issued.</div>
+  <footer class="doc-footer">Thank you for your business · ${x.orderNo}</footer>
+ </main>`;
+}
+function packingSlipHtml(d){
+ const x=documentData(d);
+ const totalUnits=x.items.reduce((n,i)=>n+Number(i.qty||0),0);
+ return `<main class="document packing-doc">
+  ${documentHeader(x,'Packing Slip','Warehouse / fulfilment copy')}
+  <section class="packing-band">
+   <div><span>Total products</span><b>${x.items.length}</b></div>
+   <div><span>Total units</span><b>${totalUnits}</b></div>
+   <div><span>Tracking</span><b>${x.tracking}</b></div>
+  </section>
+  ${customerBlock(x)}
+  <section class="section">
+   <h2>Items to pack</h2>
+   ${summaryItemsTable(x,false)}
+  </section>
+  <section class="packing-checks">
+   <div>☐ Quantities checked against order</div>
+   <div>☐ Product condition checked</div>
+   <div>☐ Correct items packed</div>
+   <div>☐ Package sealed securely</div>
+  </section>
+  <section class="sign-grid">
+   <div><span>Packed by</span><i></i></div>
+   <div><span>Checked by</span><i></i></div>
+   <div><span>Date / time</span><i></i></div>
+   <div><span>Package count</span><i></i></div>
+  </section>
+  <footer class="doc-footer">Packing slip · ${x.orderNo} · ${x.status}</footer>
+ </main>`;
+}
+function dispatchLabelHtml(d){
+ const x=documentData(d),o=x.o;
+ return `<main class="label-document">
+  <div class="label-brand">
+   <div><b>ONENESS GROUP</b><span>Lakhpati Didi Program</span></div>
+   <strong>${x.orderNo}</strong>
+  </div>
+  <div class="label-rule"></div>
+  <div class="ship-to">SHIP TO</div>
+  <div class="label-customer">${x.customer}</div>
+  <div class="label-address">${esc(x.addr||'Address not available')}</div>
+  ${x.phone?`<div class="label-phone"><span>Mobile</span><b>${x.phone}</b></div>`:''}
+  <div class="label-grid">
+   <div><span>Order</span><b>${x.orderNo}</b></div>
+   <div><span>Status</span><b>${x.status}</b></div>
+   <div><span>Tracking</span><b>${x.tracking}</b></div>
+   <div><span>Payment</span><b>${x.paymentMethod}</b></div>
+  </div>
+  ${d.show_amounts&&o.payment_method==='cod'?`<div class="cod-box">COD · ${money(o.total_paise)}</div>`:''}
+  <div class="label-footer">ONeness Group · Dispatch label</div>
+ </main>`;
 }
 function docHtml(d,type){
- const o=d.order||{},c=d.customer||{},items=d.items||[],addr=fullAddress(d.address),rows=items.map(i=>`<tr><td>${esc(i.title||'Product')}</td><td>${Number(i.qty||0)}</td>${type==='packing'?'':d.show_amounts?`<td>${money(i.unit_price_paise)}</td><td>${money(Number(i.qty||0)*Number(i.unit_price_paise||0))}</td>`:''}</tr>`).join('');
- const head=`<div style="font-family:Arial,sans-serif;color:#14251f;max-width:850px;margin:auto"><div style="display:flex;justify-content:space-between;border-bottom:2px solid #68141d;padding-bottom:10px"><div><h1 style="margin:0;color:#68141d">ONeness</h1><small>${type==='packing'?'Packing Slip':type==='label'?'Dispatch Label':type==='receipt'?'Customer Receipt':'Order Summary'}</small></div><div style="text-align:right"><b style="font-size:18px">#ON${o.id}</b><br><small>${date(o.created_at)}</small></div></div>`;
- if(type==='label')return `${head}<div style="border:3px solid #14251f;padding:18px;margin-top:18px"><h2>${esc(c.business_name||c.name||'Retailer')}</h2><p style="font-size:17px;line-height:1.5">${esc(addr)}</p>${d.show_contact&&c.phone?`<p><b>Mobile:</b> ${esc(c.phone)}</p>`:''}${d.show_amounts&&o.payment_method==='cod'?`<h2>COD ${money(o.total_paise)}</h2>`:''}</div></div>`;
- return `${head}<p><b>${esc(c.business_name||c.name||'Retailer')}</b>${d.show_contact&&c.phone?'<br>'+esc(c.phone):''}<br>${esc(addr)}</p><table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:7px;border-bottom:1px solid #ccc">Product</th><th style="padding:7px;border-bottom:1px solid #ccc">Qty</th>${type==='packing'?'':d.show_amounts?'<th style="padding:7px;border-bottom:1px solid #ccc">Rate</th><th style="padding:7px;border-bottom:1px solid #ccc">Amount</th>':''}</tr></thead><tbody>${rows}</tbody></table>${type==='packing'?'<p style="margin-top:25px">☐ Quantity checked<br><br>☐ Packed securely<br><br>Packed by: __________________</p>':d.show_amounts?`<div style="width:320px;max-width:100%;margin-left:auto;margin-top:15px"><p>Subtotal <b style="float:right">${money(d.subtotal_paise)}</b></p><p>Discount <b style="float:right">− ${money(o.discount_paise||0)}</b></p><p>Delivery <b style="float:right">${Number(o.shipping_paise||0)?money(o.shipping_paise):'Free'}</b></p><hr><h2>Total <span style="float:right">${money(o.total_paise)}</span></h2><p>Payment <b style="float:right">${esc((o.payment_method||'').toUpperCase())} · ${esc(o.payment_status||'')}</b></p>${o.payment_record_type?`<p>Received via <b style="float:right">${esc(payTypeLabel(o.payment_record_type))}${o.payment_reference?' · '+esc(o.payment_reference):''}</b></p>`:''}</div>`:''}<p style="margin-top:25px;font-size:11px;color:#69776f">Order status: ${esc(statusLabel(o.status))}${type==='receipt'?'. This is an order receipt, not a GST tax invoice.':''}</p></div>`
+ if(type==='receipt')return customerReceiptHtml(d);
+ if(type==='packing')return packingSlipHtml(d);
+ if(type==='label')return dispatchLabelHtml(d);
+ return orderSummaryHtml(d);
 }
-function printDoc(d,type){A.print(`Order #ON${d.order.id}`,docHtml(d,type))}
-async function printOne(id){try{const d=await detail(id);printDoc(d,'summary')}catch(err){A.error(err)}}
+function documentTitle(type,id){
+ const labels={
+  summary:'Order Summary',
+  receipt:'Customer Receipt',
+  packing:'Packing Slip',
+  label:'Dispatch Label'
+ };
+ return `${labels[type]||'Order Document'} · #ON${id}`;
+}
+function documentPrintCss(type){
+ const label=type==='label';
+ return `
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:white;color:#2b211c;font-family:Arial,Helvetica,sans-serif}
+  body{padding:${label?'0':'10mm'}}
+  .document{width:100%;max-width:190mm;margin:0 auto}
+  .doc-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;padding:0 0 10px;border-bottom:2px solid #68141d}
+  .brand-name{color:#68141d;font:700 24px/1 Georgia,"Times New Roman",serif;letter-spacing:.035em}
+  .brand-sub{margin-top:3px;color:#98732a;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+  .doc-title{margin-top:10px;color:#4a171b;font-size:15px;font-weight:800}
+  .doc-subtitle{margin-top:2px;color:#7c6d63;font-size:8px}
+  .order-block{text-align:right}
+  .order-no{color:#68141d;font-size:20px;font-weight:900}
+  .order-date{margin-top:4px;color:#75685f;font-size:8px}
+  .status-tag{display:inline-block;margin-top:6px;padding:4px 7px;border-radius:999px;background:#f6ead2;color:#68141d;font-size:7px;font-weight:800}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+  .info-box{padding:10px;border:1px solid #e7dbc4;border-radius:7px;background:#fffaf0}
+  .field-label,.info-box>span,.receipt-banner span,.summary-meta span,.payment-proof span,.packing-band span,.label-grid span,.label-phone span{display:block;color:#806f62;font-size:7px;font-weight:800;letter-spacing:.055em;text-transform:uppercase}
+  .info-box strong{display:block;margin-top:4px;font-size:12px}
+  .info-box small{display:block;margin-top:3px;font-size:9px}
+  .address-text{margin-top:4px;font-size:9px;line-height:1.45;white-space:pre-line}
+  .section{margin-top:13px}
+  .section h2{margin:0 0 6px;color:#68141d;font:700 12px/1.2 Georgia,"Times New Roman",serif}
+  .doc-table{width:100%;border-collapse:collapse;table-layout:fixed}
+  .doc-table th{padding:7px;background:#f3e8d2;color:#665548;font-size:7px;text-align:left;text-transform:uppercase}
+  .doc-table td{padding:8px 7px;border-bottom:1px solid #eadfc9;font-size:8px}
+  .doc-table .num{width:32px;color:#75685d}
+  .doc-table .center{text-align:center;width:56px}
+  .doc-table .right{text-align:right;width:92px}
+  .empty-doc{text-align:center;color:#7a6c62}
+  .summary-meta,.payment-proof,.packing-band{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+  .summary-meta>div,.payment-proof>div,.packing-band>div{padding:8px;border:1px solid #e8ddc8;border-radius:6px;background:#fffdf8}
+  .summary-meta b,.payment-proof b,.packing-band b{display:block;margin-top:3px;font-size:8px;overflow-wrap:anywhere}
+  .totals{width:320px;max-width:100%;margin:13px 0 0 auto;padding:10px 12px;border:1px solid #dfd1b7;border-radius:7px;background:#fffaf0}
+  .totals>div{display:flex;justify-content:space-between;gap:12px;padding:3px 0;font-size:8px}
+  .totals .grand{margin-top:5px;padding-top:8px;border-top:1px solid #cdbc9d;color:#68141d;font-size:13px}
+  .notes-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}
+  .note-box{padding:9px;border:1px solid #e8ddc8;border-radius:7px;background:#fffdf8}
+  .note-box.admin-note{background:#fff5df}
+  .note-box span{color:#806f62;font-size:7px;font-weight:800;text-transform:uppercase}
+  .note-box p{margin:5px 0 0;font-size:8px;line-height:1.45;white-space:pre-line}
+  .receipt-banner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;margin-top:12px;padding:11px;border-radius:8px;background:#68141d;color:#fff5df}
+  .receipt-banner span{color:#e5cb91}
+  .receipt-banner b{display:block;margin-top:3px;font-size:12px}
+  .receipt-total{text-align:right}
+  .receipt-total strong{display:block;margin-top:3px;color:#ffe59f;font-size:20px}
+  .receipt-note{margin-top:13px;padding:8px;border-left:3px solid #c8942d;background:#fff7e4;color:#6f6259;font-size:7px;line-height:1.45}
+  .packing-band{grid-template-columns:repeat(3,1fr)}
+  .packing-band>div{text-align:center;background:#fff5da}
+  .packing-band b{font-size:12px;color:#68141d}
+  .packing-checks{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px}
+  .packing-checks div{padding:9px;border:1px solid #dfd2ba;border-radius:7px;font-size:8px}
+  .sign-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin-top:18px}
+  .sign-grid span{display:block;color:#75685e;font-size:7px;text-transform:uppercase}
+  .sign-grid i{display:block;height:20px;border-bottom:1px solid #8d8177}
+  .doc-footer{margin-top:17px;padding-top:7px;border-top:1px solid #e2d6c0;color:#7d7066;font-size:7px;text-align:center}
+
+  .label-document{width:100%;height:100%;padding:5mm;border:2px solid #2b211c;font-family:Arial,Helvetica,sans-serif}
+  .label-brand{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .label-brand>div b{display:block;color:#68141d;font:700 16px/1 Georgia,"Times New Roman",serif}
+  .label-brand>div span{display:block;margin-top:2px;color:#98732a;font-size:6px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+  .label-brand>strong{font-size:16px;color:#68141d}
+  .label-rule{height:2px;margin:7px 0 10px;background:#68141d}
+  .ship-to{font-size:7px;font-weight:900;letter-spacing:.14em;color:#806f62}
+  .label-customer{margin-top:4px;font-size:17px;font-weight:900}
+  .label-address{margin-top:7px;font-size:13px;font-weight:700;line-height:1.45;white-space:pre-line}
+  .label-phone{margin-top:9px;padding:7px;background:#fff5dc;border-radius:5px}
+  .label-phone b{display:block;margin-top:2px;font-size:11px}
+  .label-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;padding-top:9px;border-top:1px solid #cfc1a7}
+  .label-grid>div{padding:6px;border:1px solid #ded1b8;border-radius:5px}
+  .label-grid b{display:block;margin-top:2px;font-size:8px;overflow-wrap:anywhere}
+  .cod-box{margin-top:10px;padding:9px;background:#68141d;color:#fff1ca;border-radius:5px;text-align:center;font-size:16px;font-weight:900}
+  .label-footer{margin-top:8px;font-size:6px;color:#786b61;text-align:center}
+
+  @page{size:${label?'100mm 150mm':'A4 portrait'};margin:${label?'4mm':'8mm'}}
+  @media print{
+   html,body{width:auto;height:auto}
+   body{padding:0}
+   .document,.label-document{break-inside:avoid}
+  }
+ `;
+}
+function buildPrintPage(d,type){
+ const id=Number(d?.order?.id);
+ const title=documentTitle(type,id);
+ return `<!doctype html>
+ <html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${esc(title)}</title>
+  <style>${documentPrintCss(type)}</style>
+ </head>
+ <body>${docHtml(d,type)}</body>
+ </html>`;
+}
+function openPrintWindow(){
+ // Must run directly inside the click event so mobile Chrome does not
+ // classify the print tab as an unsolicited popup.
+ return window.open('about:blank','_blank');
+}
+function renderAndPrintWindow(win,d,type){
+ if(!win||win.closed){
+  A.toast('Print window was blocked. Allow pop-ups for this site and try again.');
+  return false;
+ }
+ try{
+  const page=buildPrintPage(d,type);
+  win.document.open();
+  win.document.write(page);
+  win.document.close();
+  const run=()=>{
+   try{
+    win.focus();
+    setTimeout(()=>win.print(),180);
+   }catch(err){A.error(err)}
+  };
+  if(win.document.readyState==='complete')run();
+  else win.addEventListener('load',run,{once:true});
+  try{win.addEventListener('afterprint',()=>setTimeout(()=>win.close(),150),{once:true})}catch{}
+  return true;
+ }catch(err){
+  try{win.close()}catch{}
+  A.error(err);
+  return false;
+ }
+}
+function printOrderDocument(d,type){
+ const orderId=Number(d?.order?.id);
+ if(!orderId){A.error(Error('This order could not be prepared for printing.'));return}
+ const win=openPrintWindow();
+ renderAndPrintWindow(win,d,type);
+}
+function printDoc(d,type){printOrderDocument(d,type)}
+async function printOne(id){
+ // Open the tab while the click event is still active, then load only this order.
+ const win=openPrintWindow();
+ if(!win){
+  A.toast('Print window was blocked. Allow pop-ups for this site and try again.');
+  return;
+ }
+ try{
+  win.document.open();
+  win.document.write('<!doctype html><title>Preparing order…</title><body style="font-family:Arial;padding:30px">Preparing selected order…</body>');
+  win.document.close();
+  const d=await detail(id);
+  renderAndPrintWindow(win,d,'summary');
+ }catch(err){
+  try{win.close()}catch{}
+  A.error(err);
+ }
+}
+
 function printFiltered(){
  const r=filtered(),rows=r.map(o=>`<tr><td>#ON${o.id}</td><td>${esc(customer(o))}</td><td>${esc(date(o.created_at))}</td><td>${Number(o.unit_count||0)}</td>${amountOK?`<td>${money(o.total_paise)}</td>`:''}<td>${esc((o.payment_method||'').toUpperCase())}</td><td>${esc(o.payment_record_type?payTypeLabel(o.payment_record_type):o.payment_method==='online'?'Gateway auto':'—')}</td><td>${esc(statusLabel(o.status))}</td></tr>`).join('');
  A.print('Orders',`<h2>ONeness · Filtered Orders</h2><table><thead><tr><th>Order</th><th>Retailer</th><th>Date</th><th>Units</th>${amountOK?'<th>Amount</th>':''}<th>Payment</th><th>Payment Record</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table>`)
