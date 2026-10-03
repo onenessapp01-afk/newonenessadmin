@@ -956,6 +956,233 @@ body.order-console-page #view{
  .doc-action{min-height:48px!important}
 }
 
+
+/* ==========================================================
+   MOBILE ORDER CARD · CLEAR / CLICKABLE
+   ========================================================== */
+@media(max-width:850px){
+ .mobile-list{
+  display:grid!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+  gap:7px!important;
+  padding:0 1px 5px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  scrollbar-width:none!important
+ }
+ .mobile-list::-webkit-scrollbar{display:none!important}
+
+ .mobile-order-card{
+  position:relative!important;
+  width:100%!important;
+  min-width:0!important;
+  padding:11px!important;
+  overflow:hidden!important;
+  border:1px solid #e2d5bd!important;
+  border-radius:10px!important;
+  background:#fffdf8!important;
+  box-shadow:none!important;
+  cursor:pointer!important;
+  -webkit-tap-highlight-color:rgba(104,20,29,.06)!important
+ }
+ .mobile-order-card:active{
+  background:#fff8ea!important;
+  border-color:#cfae67!important
+ }
+ .mobile-order-card:focus-visible{
+  outline:2px solid #c8942d!important;
+  outline-offset:1px!important
+ }
+
+ .mobile-order-top{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:8px!important;
+  min-width:0!important
+ }
+ .mobile-order-idblock{min-width:0!important}
+ .mobile-order-number{
+  display:flex!important;
+  align-items:center!important;
+  gap:5px!important;
+  min-width:0!important
+ }
+ .mobile-order-number .oid{
+  color:#68141d!important;
+  font-size:15px!important;
+  line-height:1!important;
+  font-weight:900!important
+ }
+ .mobile-order-date{
+  display:block!important;
+  margin-top:4px!important;
+  color:#81746a!important;
+  font-size:10px!important;
+  line-height:1.25!important
+ }
+ .mobile-status-pill{
+  flex:0 0 auto!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  max-width:112px!important;
+  min-height:28px!important;
+  padding:5px 8px!important;
+  border-radius:999px!important;
+  font-size:10px!important;
+  font-weight:850!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important
+ }
+ .mobile-status-pill.st-syncing{background:#f2eee5!important;color:#765d34!important}
+ .mobile-status-pill.st-placed{background:#fff1c9!important;color:#7f5818!important}
+ .mobile-status-pill.st-confirmed{background:#f0e7e9!important;color:#742b34!important}
+ .mobile-status-pill.st-packed{background:#f5ead5!important;color:#705123!important}
+ .mobile-status-pill.st-dispatched{background:#fff0d9!important;color:#8c591a!important}
+ .mobile-status-pill.st-delivered{background:#e9f1e6!important;color:#356b4b!important}
+ .mobile-status-pill.st-cancelled{background:#fff0ec!important;color:#9f3c31!important}
+
+ .mobile-order-customer{
+  min-width:0!important;
+  margin-top:10px!important;
+  padding-top:9px!important;
+  border-top:1px solid #eee3d0!important
+ }
+ .mobile-order-customer .customer-name{
+  color:#3f201e!important;
+  font-size:14px!important;
+  line-height:1.25!important;
+  font-weight:850!important
+ }
+ .mobile-order-customer .customer-sub{
+  margin-top:3px!important;
+  color:#75685e!important;
+  font-size:10px!important;
+  line-height:1.3!important;
+  white-space:normal!important
+ }
+
+ .mobile-order-summary{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:6px!important;
+  margin-top:9px!important
+ }
+ .mobile-order-summary>div{
+  min-width:0!important;
+  min-height:58px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  padding:8px!important;
+  border-radius:8px!important;
+  background:#faf1e0!important
+ }
+ .mobile-order-summary span{
+  color:#81736a!important;
+  font-size:9px!important;
+  font-weight:750!important
+ }
+ .mobile-order-summary strong{
+  display:block!important;
+  margin-top:3px!important;
+  color:#4a251f!important;
+  font-size:13px!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important
+ }
+ .mobile-order-summary small{
+  display:block!important;
+  margin-top:2px!important;
+  color:#81746a!important;
+  font-size:9px!important
+ }
+ .mobile-order-amount{background:#fff3d2!important}
+ .mobile-order-amount strong{color:#68141d!important}
+
+ .mobile-payment-line{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:7px!important;
+  margin-top:7px!important;
+  padding:7px 8px!important;
+  border-radius:7px!important;
+  background:#f6efe4!important;
+  color:#64564d!important;
+  font-size:10px!important
+ }
+ .mobile-payment-line span{
+  min-width:0!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important
+ }
+
+ .mobile-status-control{
+  display:grid!important;
+  grid-template-columns:82px minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:7px!important;
+  margin-top:8px!important
+ }
+ .mobile-status-control label{
+  margin:0!important;
+  color:#6e6057!important;
+  font-size:10px!important;
+  font-weight:800!important
+ }
+ .mobile-status-control .status-select{
+  width:100%!important;
+  height:38px!important;
+  min-height:38px!important;
+  padding:6px 9px!important;
+  font-size:12px!important;
+  border-color:#dfd0b3!important
+ }
+
+ .mobile-order-actions{
+  display:grid!important;
+  grid-template-columns:1.35fr 1fr!important;
+  gap:5px!important;
+  margin-top:9px!important
+ }
+ .mobile-order-actions button{
+  width:100%!important;
+  min-width:0!important;
+  min-height:38px!important;
+  padding:6px 7px!important;
+  font-size:11px!important;
+  font-weight:800!important
+ }
+ .mobile-open-order{
+  background:#68141d!important;
+  border-color:#68141d!important;
+  color:#fff0ce!important
+ }
+
+ /* keep the first order fully visible below the app header */
+ body.order-console-page .smart-workspace{
+  min-height:0!important;
+  flex:1 1 auto!important;
+  overflow:hidden!important
+ }
+ body.order-console-page .mobile-list{
+  scroll-padding-top:8px!important
+ }
+}
+
+@media(max-width:390px){
+ .mobile-order-summary{grid-template-columns:1fr 1fr!important}
+ .mobile-order-actions{grid-template-columns:1fr 1fr!important}
+ .mobile-order-number .oid{font-size:14px!important}
+ .mobile-order-customer .customer-name{font-size:13px!important}
+}
+
 `;
 document.head.append(style);
 
@@ -1254,14 +1481,22 @@ function paymentRecordHtml(o){
  if(o.payment_status==='collected')return `<span class="pay-record done"><b>Collected</b><span>Legacy payment record</span></span>`;
  return `<span class="pay-record pending"><b>Not recorded</b><span>${o.payment_method==='cod'?'Record when received':'—'}</span></span>`;
 }
-function statusSelect(o){const next=validNext(o.status),disabled=!next.length;return `<select class="status-select ${statusClass(o.status)}" data-status-id="${o.id}" ${disabled?'disabled':''}><option value="">${esc(statusLabel(o.status))}</option>${next.map(s=>`<option value="${s}">${s==='cancelled'?'Cancel Order':'→ '+statusLabel(s)}</option>`).join('')}</select>`}
+function statusSelect(o){
+ const next=validNext(o.status),disabled=!next.length;
+ const optionLabel=s=>{
+  if(o.status==='syncing'&&s==='placed')return 'Recover → Placed';
+  if(s==='cancelled')return 'Cancel Order';
+  return '→ '+statusLabel(s);
+ };
+ return `<select class="status-select ${statusClass(o.status)}" data-status-id="${o.id}" ${disabled?'disabled':''}><option value="">${esc(statusLabel(o.status))}</option>${next.map(s=>`<option value="${s}">${esc(optionLabel(s))}</option>`).join('')}</select>`;
+}
 function render(){
  renderSummary();
  const all=filtered(),pages=Math.max(1,Math.ceil(all.length/pageSize));page=Math.max(1,Math.min(page,pages));const rows=all.slice((page-1)*pageSize,page*pageSize);
  $('count').textContent=`${all.length} matching orders · ${orders.length} total visible to your account`;
  $('page-info').textContent=`Page ${page} of ${pages}`;$('prev').disabled=page<=1;$('next').disabled=page>=pages;
  $('body').innerHTML=rows.map(o=>`<tr>
-  <td><span class="oid">#ON${o.id}</span>${o.status==='placed'?'<span class="new">NEW</span>':''}</td>
+  <td><span class="oid">#ON${o.id}</span>${['syncing','placed'].includes(o.status)?'<span class="new">NEW</span>':''}</td>
   <td><span class="customer-name">${esc(customer(o))}</span><span class="customer-sub">${esc(customerSub(o)||`Retailer #${o.user_id}`)}</span></td>
   <td>${esc(date(o.created_at))}</td>
   <td><b>${Number(o.item_count||0)}</b> products<span class="customer-sub">${Number(o.unit_count||0)} units</span></td>
@@ -1271,12 +1506,41 @@ function render(){
   <td>${statusSelect(o)}</td>
   <td><div class="actions"><button class="view-btn" data-view="${o.id}">View</button><button class="print-btn" data-print="${o.id}">Print</button>${collectOK&&o.status!=='cancelled'&&o.payment_method!=='online'?`<button class="pay-btn" data-payment="${o.id}">${o.payment_record_type?'Payment':'Record Pay'}</button>`:''}<button data-note="${o.id}">Note</button></div></td>
  </tr>`).join('');
- $('mobile').innerHTML=rows.map(o=>`<article class="m-card">
-  <div class="m-top"><div><span class="oid">#ON${o.id}</span><span class="customer-sub">${esc(date(o.created_at))}</span></div><span class="payment-pill">${esc((o.payment_method||'—').toUpperCase())}</span></div>
-  <div style="margin-top:7px"><span class="customer-name">${esc(customer(o))}</span><span class="customer-sub">${Number(o.unit_count||0)} units · ${Number(o.item_count||0)} products${amountOK?' · '+money(o.total_paise):''}</span></div>
-  <div class="m-grid"><div><span>Payment</span><strong>${esc(o.payment_status||'—')}</strong></div><div><span>Payment record</span><strong>${esc(o.payment_record_type?payTypeLabel(o.payment_record_type):(o.payment_method==='online'?'Gateway auto':'Not recorded'))}</strong></div></div>
-  ${statusSelect(o)}
-  <div class="m-actions"><button class="view-btn" data-view="${o.id}">View</button><button class="print-btn" data-print="${o.id}">Print</button>${collectOK&&o.status!=='cancelled'&&o.payment_method!=='online'?`<button class="pay-btn" data-payment="${o.id}">Payment</button>`:''}<button data-note="${o.id}">Note</button></div>
+ $('mobile').innerHTML=rows.map(o=>`<article class="m-card mobile-order-card" data-card-order="${o.id}" role="button" tabindex="0" aria-label="Open order #ON${o.id}">
+  <div class="mobile-order-top">
+   <div class="mobile-order-idblock">
+    <div class="mobile-order-number"><span class="oid">#ON${o.id}</span>${['syncing','placed'].includes(o.status)?'<span class="new">NEW</span>':''}</div>
+    <span class="mobile-order-date">${esc(date(o.created_at))}</span>
+   </div>
+   <span class="mobile-status-pill ${statusClass(o.status)}">${esc(statusLabel(o.status))}</span>
+  </div>
+
+  <div class="mobile-order-customer">
+   <span class="customer-name">${esc(customer(o))}</span>
+   <span class="customer-sub">${esc(customerSub(o)||`Retailer #${o.user_id}`)}</span>
+  </div>
+
+  <div class="mobile-order-summary">
+   <div><span>Items</span><strong>${Number(o.item_count||0)} products</strong><small>${Number(o.unit_count||0)} units</small></div>
+   ${amountOK?`<div class="mobile-order-amount"><span>Order value</span><strong>${money(o.total_paise)}</strong><small>${esc((o.payment_method||'—').toUpperCase())}</small></div>`:`<div><span>Payment</span><strong>${esc((o.payment_method||'—').toUpperCase())}</strong><small>${esc(o.payment_status||'—')}</small></div>`}
+  </div>
+
+  <div class="mobile-payment-line">
+   <span><b>${esc((o.payment_method||'—').toUpperCase())}</b> · ${esc(o.payment_status||'—')}</span>
+   <span>${esc(o.payment_record_type?payTypeLabel(o.payment_record_type):(o.payment_method==='online'?'Gateway':'Not recorded'))}</span>
+  </div>
+
+  <div class="mobile-status-control">
+   <label>Change status</label>
+   ${statusSelect(o)}
+  </div>
+
+  <div class="m-actions mobile-order-actions">
+   <button class="view-btn mobile-open-order" data-view="${o.id}">Open Order</button>
+   <button class="print-btn" data-print="${o.id}">Print</button>
+   ${collectOK&&o.status!=='cancelled'&&o.payment_method!=='online'?`<button class="pay-btn" data-payment="${o.id}">Payment</button>`:''}
+   <button data-note="${o.id}">Note</button>
+  </div>
  </article>`).join('');
  wireRows();updateSheetMeta()
 }
@@ -1286,6 +1550,18 @@ function wireRows(){
  for(const b of document.querySelectorAll('[data-print]'))b.onclick=()=>printOne(+b.dataset.print);
  for(const b of document.querySelectorAll('[data-note]'))b.onclick=()=>editNote(+b.dataset.note);
  for(const b of document.querySelectorAll('[data-payment]'))b.onclick=()=>recordPayment(+b.dataset.payment);
+ for(const card of document.querySelectorAll('[data-card-order]')){
+  const open=()=>openDetail(+card.dataset.cardOrder);
+  card.onclick=e=>{
+   if(e.target.closest('button,select,input,textarea,a,label'))return;
+   open();
+  };
+  card.onkeydown=e=>{
+   if((e.key==='Enter'||e.key===' ')&&!e.target.closest('button,select,input,textarea,a,label')){
+    e.preventDefault();open();
+   }
+  };
+ }
 }
 async function load(){
  $('count').textContent='Loading orders…';
@@ -1313,54 +1589,25 @@ function genericDatabaseConflict(err){
  return Number(err?.status)===409 &&
         /database operation failed|request failed/i.test(String(err?.message||''));
 }
-async function directOrderRow(id){
- // Preferred source: the actual row/version. If RLS does not expose the table
- // directly to admins, silently fall back to the secure Orders API.
- try{
-  const {data,error}=await A.client
-   .from('orders')
-   .select('id,status,version,tracking,updated_at')
-   .eq('id',id)
-   .maybeSingle();
-  if(!error&&data&&Number.isInteger(Number(data.version))){
-   return {...data,version:Number(data.version)};
-  }
- }catch{}
- return null;
-}
 async function freshOrderState(id){
- // First ask the secure backend for this exact order. This gives us the
- // latest status/version without relying on stale list data.
+ // Use only the secured ONeness API. The browser is intentionally not
+ // granted direct SELECT access to the private Orders register.
  try{
   const d=await A.api('order.details',{id:Number(id)});
   const o=d?.order||d;
   if(o&&Number(o.id)===Number(id)){
    const version=Number(o.version);
-   if(Number.isInteger(version)){
-    return {...o,version};
-   }
+   if(Number.isInteger(version))return {...o,version};
   }
  }catch{}
 
- // If direct table access is allowed by RLS, use it as a second source.
- try{
-  const direct=await directOrderRow(id);
-  if(direct&&Number.isInteger(Number(direct.version))){
-   return {...direct,version:Number(direct.version)};
-  }
- }catch{}
-
- // Final fallback: reload the Orders register through the secured API.
+ // Fallback to a fresh secured list if the detail snapshot is unavailable.
  const fresh=await A.all('orders.list',{});
  const live=fresh.find(x=>+x.id===+id);
  if(!live)throw Error(`Order #ON${id} is no longer available.`);
-
  const version=Number(live.version);
  if(!Number.isInteger(version)){
-  throw Error(
-   `Order #ON${id} did not return a valid current version. `+
-   `Refresh the Orders page and try again.`
-  );
+  throw Error(`Order #ON${id} did not return a valid current version. Refresh and try again.`);
  }
  return {...live,version};
 }
@@ -1407,25 +1654,25 @@ async function updateOrderStatusSmart(id,next,fd){
    if(!conflict||attempt===2)throw err;
 
    await new Promise(resolve=>setTimeout(resolve,160*(attempt+1)));
-
    const newer=await freshOrderState(id);
 
-   // Another admin may already have completed the same transition.
    if(newer.status===next)return newer;
 
    if(!validNext(newer.status).includes(next)){
     throw Error(
-     `Order #ON${id} changed to ${statusLabel(newer.status)} while this page was open. `+
-     `The order list has been refreshed.`
+     `Order #ON${id} is now ${statusLabel(newer.status)}. `+
+     `${statusLabel(next)} is no longer a valid next step.`
     );
    }
 
-   // If the authoritative version did not change, repeating the request
-   // would not solve the conflict. Surface a useful message instead.
    if(Number(newer.version)===Number(live.version)){
+    const backend=String(err?.message||'').trim();
+    if(backend && !/^database operation failed\.?$/i.test(backend)){
+     throw Error(backend);
+    }
     throw Error(
-     `The backend rejected the ${statusLabel(next)} update for #ON${id}. `+
-     `Current status is ${statusLabel(newer.status)}. Please refresh once and try again.`
+     `The backend could not complete ${statusLabel(next)} for #ON${id}. `+
+     `Current status is ${statusLabel(newer.status)}.`
     );
    }
 
