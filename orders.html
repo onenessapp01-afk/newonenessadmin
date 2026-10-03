@@ -1329,20 +1329,37 @@ async function directOrderRow(id){
  return null;
 }
 async function freshOrderState(id){
- const direct=await directOrderRow(id);
- if(direct)return direct;
+ // First ask the secure backend for this exact order. This gives us the
+ // latest status/version without relying on stale list data.
+ try{
+  const d=await A.api('order.details',{id:Number(id)});
+  const o=d?.order||d;
+  if(o&&Number(o.id)===Number(id)){
+   const version=Number(o.version);
+   if(Number.isInteger(version)){
+    return {...o,version};
+   }
+  }
+ }catch{}
 
+ // If direct table access is allowed by RLS, use it as a second source.
+ try{
+  const direct=await directOrderRow(id);
+  if(direct&&Number.isInteger(Number(direct.version))){
+   return {...direct,version:Number(direct.version)};
+  }
+ }catch{}
+
+ // Final fallback: reload the Orders register through the secured API.
  const fresh=await A.all('orders.list',{});
  const live=fresh.find(x=>+x.id===+id);
  if(!live)throw Error(`Order #ON${id} is no longer available.`);
 
  const version=Number(live.version);
  if(!Number.isInteger(version)){
-  // Do not send a malformed expected_version to PostgreSQL. A malformed
-  // integer is one cause of a generic 409 / "Database operation failed".
   throw Error(
-   `Order #ON${id} could not expose its current version. `+
-   `Refresh the page once before changing status.`
+   `Order #ON${id} did not return a valid current version. `+
+   `Refresh the Orders page and try again.`
   );
  }
  return {...live,version};
@@ -1362,47 +1379,12 @@ function statusPayload(live,next,fd){
   note:String(fd.get('note')||'')
  };
 }
-async function diagnosticStatusRpc(payload){
- // Used only after the Edge Function returns a generic 409. It lets PostgREST
- // expose the actual database rule/message when the authenticated role is
- // permitted to call the public wrapper. It never bypasses order permissions.
- try{
-  const {data:{session}}=await A.client.auth.getSession();
-  if(!session?.user?.id)return null;
-  const parts=String(session.access_token||'').split('.');
-  if(parts.length<2)return null;
-  const raw=parts[1].replace(/-/g,'+').replace(/_/g,'/');
-  const claims=JSON.parse(decodeURIComponent(escape(atob(raw+'='.repeat((4-raw.length%4)%4)))));
-  if(!claims.session_id)return null;
-  const {data,error}=await A.client.rpc('oneness_api',{
-   p_uid:session.user.id,
-   p_sid:claims.session_id,
-   p_action:'order.status',
-   p_data:payload
-  });
-  if(error)return {error};
-  return {data};
- }catch{return null}
-}
 async function sendStatusUpdate(live,next,fd){
  const payload=statusPayload(live,next,fd);
- try{
-  return await A.api('order.status',payload,{request_id:crypto.randomUUID()});
- }catch(err){
-  // Generic 409s hide the useful PostgreSQL message in the Edge Function.
-  // Attempt a secure diagnostic call so the UI can show the real rule.
-  if(genericDatabaseConflict(err)){
-   const diag=await diagnosticStatusRpc(payload);
-   if(diag?.data)return diag.data;
-   if(diag?.error?.message){
-    const e=Error(diag.error.message);
-    e.code=diag.error.code;
-    e.status=409;
-    throw e;
-   }
-  }
-  throw err;
- }
+ // IMPORTANT:
+ // Admin status updates must go through the secured `oneness` Edge Function.
+ // Do not call public.oneness_api directly from the browser.
+ return await A.api('order.status',payload,{request_id:crypto.randomUUID()});
 }
 async function updateOrderStatusSmart(id,next,fd){
  let live=await freshOrderState(id);
@@ -1418,14 +1400,17 @@ async function updateOrderStatusSmart(id,next,fd){
 
  for(let attempt=0;attempt<3;attempt++){
   try{
-   return await sendStatusUpdate(live,next,fd);
+   const result=await sendStatusUpdate(live,next,fd);
+   return result||{...live,status:next};
   }catch(err){
-   const retryable=statusConflictError(err)||genericDatabaseConflict(err);
-   if(!retryable||attempt===2)throw err;
+   const conflict=statusConflictError(err)||Number(err?.status)===409;
+   if(!conflict||attempt===2)throw err;
 
-   await new Promise(resolve=>setTimeout(resolve,140*(attempt+1)));
+   await new Promise(resolve=>setTimeout(resolve,160*(attempt+1)));
+
    const newer=await freshOrderState(id);
 
+   // Another admin may already have completed the same transition.
    if(newer.status===next)return newer;
 
    if(!validNext(newer.status).includes(next)){
@@ -1435,19 +1420,19 @@ async function updateOrderStatusSmart(id,next,fd){
     );
    }
 
-   // Retry only with a newly-read authoritative version.
-   if(Number(newer.version)===Number(live.version) && genericDatabaseConflict(err)){
-    // Same version + generic 409 means this is not a stale-row problem.
+   // If the authoritative version did not change, repeating the request
+   // would not solve the conflict. Surface a useful message instead.
+   if(Number(newer.version)===Number(live.version)){
     throw Error(
-     `The database rejected the ${statusLabel(next)} transition for #ON${id}. `+
-     `The order is still ${statusLabel(newer.status)}.`
+     `The backend rejected the ${statusLabel(next)} update for #ON${id}. `+
+     `Current status is ${statusLabel(newer.status)}. Please refresh once and try again.`
     );
    }
+
    live=newer;
   }
  }
 }
-
 function openStatusAction(id,next){
  const o=orders.find(x=>+x.id===+id);if(!o)return;let fields='';
  if(next==='dispatched')fields=`<label>Tracking / dispatch reference<input name="tracking" value="${esc(o.tracking||'')}" placeholder="LR / courier / vehicle / tracking"></label>`;
