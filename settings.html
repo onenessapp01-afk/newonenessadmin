@@ -674,6 +674,89 @@ dialog h2,dialog h3{font-size:21px!important}
  .settings-mobile-brand-copy span{display:none!important}
 }
 
+/* Splash Screens */
+.splash-head{
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px
+}
+.splash-head h2{margin:0;color:var(--sx-wine-dark);font-size:23px}
+.splash-head p{margin:5px 0 0;color:var(--sx-muted);font-size:13px;line-height:1.45}
+.splash-list{display:grid;gap:8px}
+.splash-card{
+ display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap:11px;align-items:center;
+ padding:10px;border:1px solid var(--sx-line);border-radius:10px;background:#fffdf8
+}
+.splash-thumb{
+ width:88px;height:104px;border-radius:8px;overflow:hidden;background:#071d35;
+ display:grid;place-items:center;border:1px solid #e3d5bd
+}
+.splash-thumb img{width:100%;height:100%;object-fit:cover}
+.splash-copy{min-width:0}
+.splash-title{color:#4c191d;font-size:14px;font-weight:850}
+.splash-meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.splash-chip{
+ display:inline-flex;padding:4px 7px;border-radius:999px;background:#f4ead5;
+ color:#665032;font-size:9px;font-weight:850
+}
+.splash-chip.on{background:#eaf1e6;color:#356b4b}
+.splash-chip.off{background:#fff0ec;color:#9a3c31}
+.splash-caption{
+ margin-top:6px;color:#776a60;font-size:11px;line-height:1.45;
+ white-space:normal;overflow-wrap:anywhere
+}
+.splash-actions{display:grid;gap:5px;min-width:92px}
+.splash-actions button{width:100%;min-height:33px!important;font-size:10px!important}
+.splash-empty{
+ padding:28px;border:1px dashed #dbc99f;border-radius:10px;background:#fffaf0;
+ text-align:center;color:#786a60;font-size:12px
+}
+.splash-editor{display:grid;gap:12px}
+.splash-editor-grid{
+ display:grid;grid-template-columns:1fr 1fr;gap:10px
+}
+.splash-editor-grid .wide{grid-column:1/-1}
+.splash-editor label{display:grid;gap:5px;font-size:12px;font-weight:750;color:#5f5148}
+.splash-editor input,.splash-editor select,.splash-editor textarea{
+ width:100%;min-height:41px;padding:8px 10px;border:1px solid #dcd0ba;border-radius:8px;
+ background:#fff;font-size:14px;outline:none
+}
+.splash-editor textarea{min-height:76px;resize:vertical}
+.splash-image-box{
+ display:grid;grid-template-columns:140px minmax(0,1fr);gap:12px;align-items:center;
+ padding:10px;border:1px solid #e2d4ba;border-radius:9px;background:#fffaf0
+}
+.splash-image-preview{
+ width:140px;height:170px;border-radius:8px;overflow:hidden;background:#071d35;
+ display:grid;place-items:center;color:#d2b567;font-size:11px;text-align:center
+}
+.splash-image-preview img{width:100%;height:100%;object-fit:cover}
+.splash-upload-copy b{display:block;color:#4c191d;font-size:13px}
+.splash-upload-copy p{margin:4px 0 8px;color:#786a60;font-size:11px;line-height:1.4}
+.splash-pages{
+ display:grid;grid-template-columns:repeat(4,1fr);gap:6px
+}
+.splash-page{
+ display:flex!important;align-items:center!important;gap:6px!important;min-height:36px!important;
+ padding:7px!important;border:1px solid #e6dac4!important;border-radius:7px!important;
+ background:#fffdf8!important;font-size:11px!important;font-weight:750!important
+}
+.splash-page input{width:16px!important;height:16px!important;min-height:16px!important}
+.splash-editor-note{
+ padding:9px 10px;border-radius:8px;background:#fff3d4;color:#6f501b;
+ font-size:11px;line-height:1.45
+}
+@media(max-width:760px){
+ .splash-head{display:block}
+ .splash-head button{width:100%;margin-top:8px}
+ .splash-card{grid-template-columns:68px minmax(0,1fr);align-items:start}
+ .splash-thumb{width:68px;height:84px}
+ .splash-actions{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 1fr;min-width:0}
+ .splash-editor-grid{grid-template-columns:1fr}
+ .splash-editor-grid .wide{grid-column:auto}
+ .splash-image-box{grid-template-columns:88px minmax(0,1fr)}
+ .splash-image-preview{width:88px;height:112px}
+ .splash-pages{grid-template-columns:1fr 1fr}
+}
+
 </style>
 </head><body>
 <div id="app">
@@ -742,11 +825,12 @@ const SETTING_META={
  payments:{icon:'₹',color:'#2c7a58',desc:'COD / online availability and retailer eligibility.'},
  coupons:{icon:'%',color:'#a24f3d',desc:'Discount codes, eligibility, dates and usage.'},
  notifications:{icon:'N',color:'#477b87',desc:'Push notification registration and device control.'},
+ splash:{icon:'◫',color:'#8a641e',desc:'Promotional posters, audience targeting, pages and display frequency.'},
  backup:{icon:'B',color:'#2b6f58',desc:'Export the database or schedule encrypted server-side backups to Google Sheets.'},
  jobs:{icon:'J',color:'#675d51',desc:'Pending or failed backend synchronization jobs.'}
 };
 
-const tabs=[['profile','My profile'],['addresses','Addresses'],...(profile.role==='owner'?[['team','Team & Access'],['backup','Backup & Export']]:[]),...(A.can('settings')?[['store','Store'],['payments','Payments']]:[]),...(A.can('coupons')?[['coupons','Coupons']]:[]),['notifications','Notifications'],...(profile.role==='owner'?[['jobs','Sync jobs']]:[])];
+const tabs=[['profile','My profile'],['addresses','Addresses'],...(profile.role==='owner'?[['team','Team & Access'],['backup','Backup & Export']]:[]),...(A.can('settings')?[['store','Store'],['payments','Payments'],['splash','Splash Screens']]:[]),...(A.can('coupons')?[['coupons','Coupons']]:[]),['notifications','Notifications'],...(profile.role==='owner'?[['jobs','Sync jobs']]:[])];
 $('view').innerHTML=`
 <div class="settings-hero">
  <div><h1>Settings</h1><p>Control your account, store operations, team access, payments and communication from one place.</p></div>
@@ -780,6 +864,7 @@ async function show(next=tab){
  if(tab==='addresses'){const rows=await A.api('addresses.list');el.innerHTML='<div class="row between"><h2>Saved addresses</h2><button class="primary" id="new-address">Add address</button></div>'+A.table(['Label','Address',''],rows.map(a=>[esc(a.label),Object.values(a.details).filter(Boolean).map(esc).join(', '),`<button class="small" data-edit="${a.id}">Edit</button> <button class="small danger" data-delete="${a.id}">Delete</button>`]));$('new-address').onclick=()=>A.addressForm(null,()=>show());for(const b of el.querySelectorAll('[data-edit]'))b.onclick=()=>A.addressForm(rows.find(x=>x.id===+b.dataset.edit),()=>show());for(const b of el.querySelectorAll('[data-delete]'))b.onclick=async()=>{if(!confirm('Delete this saved address? Existing orders keep their saved address.'))return;const a=rows.find(x=>x.id===+b.dataset.delete);try{await A.api('address.delete',{id:a.id,expected_version:a.version});await show();}catch(e){A.error(e);}};}
  if(tab==='team')await renderTeam(el);
  if(tab==='payments')await renderPayments(el);
+ if(tab==='splash')await renderSplashScreens(el);
  if(tab==='store'){settings=await A.api('settings.get');const cod=(settings.payment_methods||[]).find(x=>x.method==='cod');el.innerHTML=`<h2>${esc(settings.store_name)}</h2><p>Delivery: ${money(settings.delivery_paise)} · Minimum order: ${money(settings.minimum_order_paise)}</p><p>Cash on Delivery: ${cod?.enabled?'enabled':'disabled'} · Email ${settings.email_enabled?'enabled':'disabled'} · Push ${settings.push_enabled?'enabled':'disabled'}</p><p>Serviceable PIN codes: ${esc(settings.allowed_pincodes.join(', ')||'All PIN codes')}</p><div class="row"><button id="edit-store" class="primary">Edit store settings</button><button id="open-payments">Manage payment methods</button></div><div class="integration-grid"><div class="integration-item"><b>Apps Script bridge</b><span class="muted">Configured server-side</span></div><div class="integration-item"><b>Push / email secrets</b><span class="muted">Hidden from the browser</span></div></div><p class="muted" style="margin-top:20px">Payment eligibility is managed in the Payments tab. Secret integration values remain backend-only.</p>`;$('open-payments').onclick=()=>show('payments').catch(A.error);$('edit-store').onclick=()=>A.form('Store settings',[['store_name','Store name','text',[],true],['delivery','Delivery charge (₹)','number',[],true],['minimum','Minimum order (₹)','number',[],true],['pincodes','Serviceable PIN codes, comma separated; blank = all','textarea'],['email_enabled','Enable order emails','checkbox'],['push_enabled','Enable push notifications','checkbox']],{...settings,delivery:settings.delivery_paise/100,minimum:settings.minimum_order_paise/100,pincodes:settings.allowed_pincodes.join(', ')},async v=>{const pins=v.pincodes.split(',').map(x=>x.trim()).filter(Boolean);if(pins.some(x=>!/^[0-9]{6}$/.test(x)))throw Error('Use valid six-digit PIN codes.');await A.api('admin.settings.put',{expected_version:settings.version,store_name:v.store_name,delivery_paise:A.paise(v.delivery),minimum_order_paise:A.paise(v.minimum),allowed_pincodes:pins,email_enabled:v.email_enabled,push_enabled:v.push_enabled});await show();});}
  if(tab==='coupons'){coupons=await A.all('admin.coupons');el.innerHTML='<div class="row between"><h2>Coupons</h2><button class="primary" id="new-coupon">Create coupon</button></div>'+A.table(['Code','Discount','Eligibility','Status',''],coupons.map(c=>[esc(c.code),c.kind==='percent'?(c.value/100)+'%':money(c.value),c.eligible_users?'Users '+esc(c.eligible_users.join(', ')):'All approved users',A.badge(c.active?'active':'inactive'),`<button class="small" data-edit-coupon="${c.id}">Edit</button> <button class="small" data-usage="${c.id}">Usage</button>`]));$('new-coupon').onclick=()=>editCoupon();for(const b of el.querySelectorAll('[data-edit-coupon]'))b.onclick=()=>editCoupon(coupons.find(c=>c.id===+b.dataset.editCoupon));for(const b of el.querySelectorAll('[data-usage]'))b.onclick=()=>usage(+b.dataset.usage).catch(A.error);}
  if(tab==='notifications'){profile=await A.api('session.me');el.innerHTML=`<h2>Device notifications</h2><p>${profile.push_enabled?'This account has a registered push subscription.':'Notifications are not registered for this account.'}</p><div class="row"><button class="primary" id="enable-push">Enable on this device</button><button id="disable-push">Disable for my account</button></div><p class="muted" style="margin-top:16px">Your most recent app login is the active device.</p>`;$('enable-push').onclick=async()=>{try{await A.notifications();await show();}catch(e){A.error(e);}};$('disable-push').onclick=async()=>{try{await A.api('push.unregister');await show();}catch(e){A.error(e);}};}
@@ -809,6 +894,203 @@ async function renderPayments(el){
 }
 function paymentCard(m,retailers){const locked=!m.integration_ready,mode=m.audience_mode||'specific',selected=new Set((m.retailer_ids||[]).map(Number)),active=retailers.filter(r=>r.status!=='blocked');const eligible=mode==='all'?active.length:mode==='specific'?active.filter(r=>selected.has(+r.id)).length:active.filter(r=>!selected.has(+r.id)).length;return `<section class="payment-card" data-payment-card="${esc(m.method)}"><div class="payment-head"><div><div class="payment-title">${esc(m.label)}</div><div class="payment-sub">${m.method==='cod'?'Collect payment when the retailer receives the order.':'UPI, cards and net banking require a connected payment gateway.'}</div></div><span class="payment-state ${locked?'warn':m.enabled?'':'off'}">${locked?'Gateway not connected':m.enabled?'Enabled':'Disabled'}</span></div>${locked?'<div class="payment-lock">You can prepare the audience now, but this method cannot be enabled until its payment gateway integration is connected.</div>':''}<div class="payment-controls"><div class="payment-side"><label class="payment-toggle"><input type="checkbox" data-pay-enabled="${esc(m.method)}" ${m.enabled?'checked':''} ${locked?'disabled':''}><span><b>Enable this method</b><br><small class="muted">Show this payment option to eligible retailers.</small></span></label><label>Who can use it?<select data-pay-mode="${esc(m.method)}"><option value="all" ${mode==='all'?'selected':''}>All retailers</option><option value="specific" ${mode==='specific'?'selected':''}>Only selected retailers</option><option value="all_except" ${mode==='all_except'?'selected':''}>All except selected retailers</option></select></label><p class="audience-help" data-pay-help="${esc(m.method)}"></p><div class="payment-summary" data-pay-summary="${esc(m.method)}">${eligible} currently eligible retailer${eligible===1?'':'s'}.</div></div><div class="retailer-picker" data-picker="${esc(m.method)}"><div class="retailer-search"><input data-pay-search="${esc(m.method)}" placeholder="Search retailer, shop, email or mobile"><div class="retailer-count" data-pay-count="${esc(m.method)}">${selected.size} selected</div></div><div class="retailer-list" data-pay-list="${esc(m.method)}"></div></div></div><div class="payment-actions"><button class="primary" data-pay-save="${esc(m.method)}">Save payment settings</button></div></section>`;}
 function wirePaymentCard(m,retailers){const key=m.method,card=document.querySelector(`[data-payment-card="${CSS.escape(key)}"]`),modeEl=card.querySelector(`[data-pay-mode="${CSS.escape(key)}"]`),searchEl=card.querySelector(`[data-pay-search="${CSS.escape(key)}"]`),listEl=card.querySelector(`[data-pay-list="${CSS.escape(key)}"]`),picker=card.querySelector(`[data-picker="${CSS.escape(key)}"]`),countEl=card.querySelector(`[data-pay-count="${CSS.escape(key)}"]`),helpEl=card.querySelector(`[data-pay-help="${CSS.escape(key)}"]`),summaryEl=card.querySelector(`[data-pay-summary="${CSS.escape(key)}"]`),enabledEl=card.querySelector(`[data-pay-enabled="${CSS.escape(key)}"]`),saveEl=card.querySelector(`[data-pay-save="${CSS.escape(key)}"]`);let selected=new Set((m.retailer_ids||[]).map(Number));const effectiveCount=()=>{const active=retailers.filter(r=>r.status!=='blocked');return modeEl.value==='all'?active.length:modeEl.value==='specific'?active.filter(r=>selected.has(+r.id)).length:active.filter(r=>!selected.has(+r.id)).length};const draw=()=>{const mode=modeEl.value;picker.style.display=mode==='all'?'none':'block';helpEl.textContent=mode==='all'?'Every active retailer can use this payment method.':mode==='specific'?'Only the retailers ticked on the right can use this payment method.':'Every active retailer can use this method except the retailers ticked on the right.';const q=(searchEl.value||'').trim().toLowerCase(),rows=retailers.filter(r=>!q||`${r.id} ${r.name||''} ${r.business_name||''} ${r.email||''} ${r.phone||''}`.toLowerCase().includes(q));listEl.innerHTML=rows.length?rows.map(r=>`<label class="retailer-row"><input type="checkbox" data-retailer-id="${r.id}" ${selected.has(+r.id)?'checked':''}><span><b>${esc(r.business_name||r.name||'Retailer #'+r.id)}</b><small>#${r.id} · ${esc(r.name||'')} · ${esc(r.email||'')}${r.phone?' · '+esc(r.phone):''}</small></span><span class="retailer-status">${esc(r.status)}</span></label>`).join(''):'<div class="team-empty">No retailers match this search.</div>';for(const c of listEl.querySelectorAll('[data-retailer-id]'))c.onchange=()=>{const id=+c.dataset.retailerId;c.checked?selected.add(id):selected.delete(id);countEl.textContent=selected.size+' selected';const n=effectiveCount();summaryEl.textContent=n+` currently eligible retailer${n===1?'':'s'}.`};countEl.textContent=selected.size+' selected';const n=effectiveCount();summaryEl.textContent=n+` currently eligible retailer${n===1?'':'s'}.`};modeEl.onchange=draw;searchEl.oninput=draw;draw();saveEl.onclick=async()=>{try{saveEl.disabled=true;const mode=modeEl.value;if(mode==='specific'&&!selected.size&&!confirm('No retailer is selected. This will make this payment method unavailable to every retailer. Continue?')){saveEl.disabled=false;return;}await A.api('admin.settings.put',{expected_version:settings.version,payment_method:key,payment_enabled:enabledEl.checked,payment_audience_mode:mode,payment_retailer_ids:[...selected],payment_expected_version:m.version});A.toast('Payment settings saved');await show('payments');}catch(e){A.error(e);saveEl.disabled=false;}};}
+
+
+function splashAudienceLabel(v){
+ return ({
+  all:'All users',
+  unregistered:'Unregistered visitors',
+  registered:'All registered retailers',
+  new_registered:'New registered retailers',
+  returning_registered:'Returning retailers'
+ })[v]||v;
+}
+function splashFrequencyLabel(v){
+ return ({
+  always:'Every eligible visit',
+  once_per_session:'Once per session',
+  once_per_day:'Once per day',
+  once_per_account:'Once per account/browser'
+ })[v]||v;
+}
+function splashDate(v){
+ return v?new Date(v).toLocaleString('en-IN',{timeZone:'Asia/Kolkata',dateStyle:'medium',timeStyle:'short'}):'—';
+}
+function splashInputDate(v){
+ if(!v)return '';
+ const d=new Date(v);
+ const local=new Date(d.getTime()-d.getTimezoneOffset()*60000);
+ return local.toISOString().slice(0,16);
+}
+async function splashRows(){
+ const {data,error}=await A.client.from('retailer_splash_posters')
+   .select('*').order('sort_order',{ascending:true}).order('id',{ascending:false});
+ if(error)throw error;
+ return Array.isArray(data)?data:[];
+}
+async function imageFileBase64(file){
+ if(!file)return '';
+ if(file.size>5*1024*1024)throw Error('Use an image smaller than 5 MB.');
+ if(!/^image\/(jpeg|png|webp)$/i.test(file.type))throw Error('Use JPG, PNG or WebP.');
+ return await new Promise((resolve,reject)=>{
+  const r=new FileReader();
+  r.onload=()=>resolve(String(r.result||'').split(',')[1]||'');
+  r.onerror=()=>reject(Error('Could not read the selected image.'));
+  r.readAsDataURL(file);
+ });
+}
+async function uploadSplashImage(file){
+ const base64=await imageFileBase64(file);
+ const {data,error}=await A.client.functions.invoke('product-image-upload',{body:{base64,name:'splash-'+Date.now()+'-'+file.name}});
+ if(error){
+  let msg=error.message||'Image upload failed.';
+  try{const body=await error.context?.json?.();msg=body?.error?.message||msg}catch{}
+  throw Error(msg);
+ }
+ if(data?.ok!==true||!data?.data?.url)throw Error(data?.error?.message||'Image upload was not confirmed.');
+ return data.data.url;
+}
+async function renderSplashScreens(el){
+ let rows=[];
+ try{rows=await splashRows()}
+ catch(e){
+  el.innerHTML=`<div class="splash-head"><div><h2>Splash Screens</h2><p>Upload promotional posters to ImgBB and target them to the right retailer audience.</p></div></div>
+  <div class="notice error">Splash Screens backend is not installed yet. Run <b>retailer-splash-backend.sql</b> once in Supabase, then reopen this setting.</div>`;
+  return;
+ }
+ el.innerHTML=`<div class="splash-head"><div><h2>Splash Screens</h2><p>Manage the posters customers see when they enter ONeness. Posters are stored on ImgBB; only the image URL and display rules are stored in Supabase.</p></div><button id="new-splash" class="primary">+ Add poster</button></div>
+ <div class="smart-cards">
+  <div class="smart-card"><span>Total posters</span><strong>${rows.length}</strong><small>All configured creatives</small></div>
+  <div class="smart-card"><span>Active now</span><strong>${rows.filter(x=>x.is_active&&(!x.starts_at||new Date(x.starts_at)<=new Date())&&(!x.ends_at||new Date(x.ends_at)>new Date())).length}</strong><small>Eligible by schedule</small></div>
+  <div class="smart-card"><span>Audience types</span><strong>${new Set(rows.map(x=>x.audience)).size}</strong><small>Targeting groups in use</small></div>
+  <div class="smart-card"><span>Pages targeted</span><strong>${new Set(rows.flatMap(x=>x.page_scope||[])).size}</strong><small>Customer surfaces</small></div>
+ </div>
+ <div id="splash-list" class="splash-list">${
+  rows.length?rows.map(r=>`<article class="splash-card">
+   <div class="splash-thumb"><img src="${esc(r.image_url)}" alt="${esc(r.alt_text||r.title||'Splash poster')}" loading="lazy"></div>
+   <div class="splash-copy">
+    <div class="splash-title">${esc(r.title||'Untitled poster')}</div>
+    <div class="splash-meta">
+     <span class="splash-chip ${r.is_active?'on':'off'}">${r.is_active?'Active':'Disabled'}</span>
+     <span class="splash-chip">${esc(splashAudienceLabel(r.audience))}</span>
+     <span class="splash-chip">${esc(splashFrequencyLabel(r.display_frequency))}</span>
+     <span class="splash-chip">${esc((r.page_scope||['all']).join(', '))}</span>
+    </div>
+    <div class="splash-caption">${esc(r.caption||'No caption')}<br><small>Schedule: ${esc(r.starts_at?splashDate(r.starts_at):'Now')} → ${esc(r.ends_at?splashDate(r.ends_at):'No end date')}</small></div>
+   </div>
+   <div class="splash-actions">
+    <button data-splash-edit="${r.id}" class="primary">Edit</button>
+    <button data-splash-toggle="${r.id}">${r.is_active?'Disable':'Enable'}</button>
+    <button data-splash-delete="${r.id}" class="danger">Delete</button>
+   </div>
+  </article>`).join(''):'<div class="splash-empty">No splash posters yet. Add your first creative and choose exactly who should see it.</div>'
+ }</div>
+ <div class="splash-editor-note" style="margin-top:12px"><b>Audience rules:</b> “New registered retailers” uses the poster’s New user days value. “Unregistered visitors” applies before login. Page scope controls whether a poster can appear on Home, Account, Product, Cart, Address, Payment or Earnings.</div>`;
+ $('new-splash').onclick=()=>openSplashEditor(null,()=>show('splash'));
+ for(const b of el.querySelectorAll('[data-splash-edit]'))b.onclick=()=>openSplashEditor(rows.find(x=>x.id===+b.dataset.splashEdit),()=>show('splash'));
+ for(const b of el.querySelectorAll('[data-splash-toggle]'))b.onclick=async()=>{
+  const r=rows.find(x=>x.id===+b.dataset.splashToggle);if(!r)return;
+  try{
+   b.disabled=true;
+   const {error}=await A.client.from('retailer_splash_posters').update({is_active:!r.is_active,updated_at:new Date().toISOString()}).eq('id',r.id);
+   if(error)throw error;A.toast(!r.is_active?'Poster enabled':'Poster disabled');await show('splash');
+  }catch(e){A.error(e);b.disabled=false}
+ };
+ for(const b of el.querySelectorAll('[data-splash-delete]'))b.onclick=async()=>{
+  const r=rows.find(x=>x.id===+b.dataset.splashDelete);if(!r)return;
+  if(!confirm('Delete this splash poster? The ImgBB image itself is not deleted.'))return;
+  try{
+   b.disabled=true;
+   const {error}=await A.client.from('retailer_splash_posters').delete().eq('id',r.id);
+   if(error)throw error;A.toast('Poster deleted');await show('splash');
+  }catch(e){A.error(e);b.disabled=false}
+ };
+}
+function openSplashEditor(row,onDone){
+ const existing=row||{};
+ const pages=['all','home','account','product','cart','address','payment','earnings'];
+ A.modal(row?'Edit splash poster':'Add splash poster',`<div class="splash-editor">
+  <div class="splash-image-box">
+   <div id="splash-preview" class="splash-image-preview">${existing.image_url?`<img src="${esc(existing.image_url)}" alt="">`:'Poster preview'}</div>
+   <div class="splash-upload-copy"><b>Poster image</b><p>JPG, PNG or WebP. The existing product-image-upload function sends the file to ImgBB.</p><input id="splash-file" type="file" accept="image/jpeg,image/png,image/webp"></div>
+  </div>
+  <div class="splash-editor-grid">
+   <label>Title<input id="splash-title" maxlength="120" value="${esc(existing.title||'')}"></label>
+   <label>Audience<select id="splash-audience">
+    <option value="all">All users</option><option value="unregistered">Unregistered visitors</option><option value="registered">All registered retailers</option><option value="new_registered">New registered retailers</option><option value="returning_registered">Returning retailers</option>
+   </select></label>
+   <label class="wide">Caption<textarea id="splash-caption" maxlength="300">${esc(existing.caption||'')}</textarea></label>
+   <label>Display frequency<select id="splash-frequency"><option value="once_per_session">Once per session</option><option value="once_per_day">Once per day</option><option value="once_per_account">Once per account/browser</option><option value="always">Every eligible visit</option></select></label>
+   <label>New user window (days)<input id="splash-days" type="number" min="1" max="90" value="${Number(existing.new_user_days||7)}"></label>
+   <label>Start date / time<input id="splash-start" type="datetime-local" value="${esc(splashInputDate(existing.starts_at))}"></label>
+   <label>End date / time<input id="splash-end" type="datetime-local" value="${esc(splashInputDate(existing.ends_at))}"></label>
+   <label>Button label<input id="splash-button-label" maxlength="60" value="${esc(existing.button_label||'')}"></label>
+   <label>Button link<input id="splash-button-url" maxlength="500" placeholder="product.html?id=12 or https://…" value="${esc(existing.button_url||'')}"></label>
+   <label>Sort order<input id="splash-sort" type="number" step="1" value="${Number(existing.sort_order||100)}"></label>
+   <label>Alt text<input id="splash-alt" maxlength="160" value="${esc(existing.alt_text||'')}"></label>
+   <label class="wide">Page scope<div class="splash-pages">${pages.map(p=>`<span class="splash-page"><input type="checkbox" data-splash-page="${p}" ${(existing.page_scope||['all']).includes(p)?'checked':''}>${p==='all'?'All pages':p[0].toUpperCase()+p.slice(1)}</span>`).join('')}</div></label>
+   <label><span><input id="splash-active" type="checkbox" ${existing.is_active!==false?'checked':''}> Active</span></label>
+   <label><span><input id="splash-dismissible" type="checkbox" ${existing.dismissible!==false?'checked':''}> User can skip</span></label>
+  </div>
+  <div id="splash-editor-message" class="notice" hidden></div>
+  <div class="row"><button id="splash-save" class="primary">${row?'Save changes':'Create poster'}</button><button id="splash-cancel">Cancel</button></div>
+ </div>`);
+ $('splash-audience').value=existing.audience||'all';
+ $('splash-frequency').value=existing.display_frequency||'once_per_session';
+ let imageUrl=existing.image_url||'';
+ $('splash-file').onchange=async()=>{
+  const file=$('splash-file').files?.[0];if(!file)return;
+  const preview=$('splash-preview');
+  try{
+   preview.textContent='Uploading…';
+   imageUrl=await uploadSplashImage(file);
+   preview.innerHTML=`<img src="${esc(imageUrl)}" alt="">`;
+   A.toast('Poster uploaded to ImgBB');
+  }catch(e){preview.textContent='Upload failed';A.error(e)}
+ };
+ $('splash-cancel').onclick=()=>$('modal').close();
+ $('splash-save').onclick=async()=>{
+  const msg=$('splash-editor-message');
+  try{
+   const selected=[...document.querySelectorAll('[data-splash-page]:checked')].map(x=>x.dataset.splashPage);
+   if(!imageUrl)throw Error('Upload a poster image first.');
+   if(!selected.length)throw Error('Choose at least one page.');
+   if(selected.includes('all')&&selected.length>1)throw Error('Choose All pages by itself, or select specific pages.');
+   const start=$('splash-start').value,end=$('splash-end').value;
+   const payload={
+    title:$('splash-title').value.trim(),
+    caption:$('splash-caption').value.trim(),
+    alt_text:$('splash-alt').value.trim(),
+    image_url:imageUrl,
+    button_label:$('splash-button-label').value.trim(),
+    button_url:$('splash-button-url').value.trim(),
+    audience:$('splash-audience').value,
+    page_scope:selected,
+    display_frequency:$('splash-frequency').value,
+    new_user_days:Number($('splash-days').value||7),
+    starts_at:start?new Date(start).toISOString():null,
+    ends_at:end?new Date(end).toISOString():null,
+    sort_order:Number($('splash-sort').value||100),
+    dismissible:$('splash-dismissible').checked,
+    is_active:$('splash-active').checked,
+    updated_at:new Date().toISOString()
+   };
+   if(payload.ends_at&&payload.starts_at&&new Date(payload.ends_at)<=new Date(payload.starts_at))throw Error('End time must be later than start time.');
+   $('splash-save').disabled=true;
+   let result;
+   if(row){
+    result=await A.client.from('retailer_splash_posters').update(payload).eq('id',row.id);
+   }else{
+    payload.created_by_profile_id=profile.id;
+    result=await A.client.from('retailer_splash_posters').insert(payload);
+   }
+   if(result.error)throw result.error;
+   $('modal').close();A.toast(row?'Splash poster updated':'Splash poster created');await onDone?.();
+  }catch(e){
+   msg.hidden=false;msg.className='notice error';msg.textContent=e.message||String(e);$('splash-save').disabled=false;
+  }
+ };
+}
 
 async function renderTeam(el){
  if(profile.role!=='owner')throw Error('Owner access required');
