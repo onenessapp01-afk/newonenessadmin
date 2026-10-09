@@ -199,7 +199,9 @@ body.payments-console .pay-footer{flex:0 0 auto}
  position:fixed;inset:0;z-index:100000;display:grid;place-items:center;
  background:radial-gradient(circle at 50% 42%,rgba(229,187,84,.13),transparent 31%),var(--pay-paper)
 }
-.payments-boot-wrap{display:grid;justify-items:center;gap:10px}
+.payments-boot-wrap{display:grid;justify-items:center;gap:10px;animation:payBootAppear .32s ease-out both}
+@keyframes payBootAppear{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.payments-boot-wrap{animation:none}}
 .payments-boot-logo{width:76px;height:48px;object-fit:contain}
 .payments-boot-inf{width:96px;height:56px;overflow:visible;filter:drop-shadow(0 6px 12px rgba(104,20,29,.12))}
 .payments-boot-inf path{fill:none;stroke-linecap:round;stroke-linejoin:round}
@@ -740,12 +742,40 @@ function paymentReceiptHtml(d,listOrder){
  </section>`;
 }
 
+function printOnlyPaymentReceipt(title,receiptMarkup){
+ // An isolated print frame prevents the admin dashboard, modal and other orders
+ // from appearing in the browser's print preview.
+ const frame=document.createElement('iframe');
+ frame.setAttribute('title',title);
+ frame.setAttribute('aria-hidden','true');
+ frame.style.cssText='position:fixed!important;right:0!important;bottom:0!important;width:0!important;height:0!important;border:0!important;opacity:0!important;pointer-events:none!important';
+ const css=`@page{size:A4;margin:14mm 13mm}*{box-sizing:border-box}html,body{margin:0;padding:0;background:#fff!important;color:#17241f;font-family:Arial,Helvetica,sans-serif}body{font-size:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}.receipt-paper{width:100%;max-width:760px;margin:0 auto}.receipt-brand{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;border-bottom:2px solid #68141d;padding-bottom:12px;margin-bottom:14px}.receipt-brand h1{margin:0;color:#68141d;font-size:26px}.receipt-brand p{margin:3px 0 0;color:#66766e;font-size:11px}.receipt-no{text-align:right}.receipt-no b{display:block;font-size:18px}.receipt-no span{display:block;font-size:10px;color:#67766e}.receipt-total{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px;border-radius:8px;background:#68141d!important;color:#fff!important;margin-bottom:12px}.receipt-total span{color:#fff!important;font-size:11px}.receipt-total b{font-size:23px}.receipt-box{border:1px solid #dfd6c7;border-radius:8px;padding:12px;margin-bottom:11px;break-inside:avoid;page-break-inside:avoid}.receipt-box h3{margin:0 0 9px;font-size:13px;color:#68141d}.receipt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.receipt-grid div{padding:8px;border-radius:5px;background:#f8f7f4}.receipt-grid span{display:block;color:#6b7972;font-size:9px}.receipt-grid b{display:block;margin-top:2px;color:#17241f;font-size:11px;overflow-wrap:anywhere}.receipt-foot{font-size:9px;color:#6b7972;line-height:1.5;margin-top:14px}@media print{html,body{height:auto!important;overflow:visible!important}.receipt-paper{page-break-after:auto}}`;
+ const safeTitle=String(title).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><title>'+safeTitle+'</title><style>'+css+'</style></head><body>'+receiptMarkup+'</body></html>';
+ document.body.appendChild(frame);
+ let started=false;
+ const cleanup=()=>{if(frame.isConnected)frame.remove()};
+ frame.onload=()=>{
+  if(started)return;started=true;
+  const printWindow=frame.contentWindow;
+  if(!printWindow){cleanup();A.error(new Error('Could not prepare the receipt for printing.'));return}
+  printWindow.addEventListener('afterprint',cleanup,{once:true});
+  // Give the browser one paint before opening its native print dialog.
+  printWindow.requestAnimationFrame(()=>printWindow.requestAnimationFrame(()=>{
+   try{printWindow.focus();printWindow.print()}catch(e){cleanup();A.error(e)}
+  }));
+ };
+}
+
 async function printPaymentReceipt(id){
- const listOrder=orders.find(x=>+x.id===+id);
+ const orderId=Number(id);
+ if(!Number.isSafeInteger(orderId)||orderId<=0)throw Error('Invalid order selected.');
+ const listOrder=orders.find(x=>Number(x.id)===orderId);
  if(!listOrder)throw Error('Payment record not found.');
  if(listOrder.payment_status!=='collected')throw Error('A payment receipt can be printed only after payment is collected.');
- const d=await A.api('order.details',{id});
- A.print(`Payment Receipt · #ON${id}`,paymentReceiptHtml(d,listOrder));
+ const d=await A.api('order.details',{id:orderId});
+ if(d?.order?.id!=null&&Number(d.order.id)!==orderId)throw Error('Receipt order mismatch. Please retry.');
+ printOnlyPaymentReceipt(`Payment Receipt · #ON${orderId}`,paymentReceiptHtml(d,listOrder));
 }
 
 function printPaymentStatement(){
