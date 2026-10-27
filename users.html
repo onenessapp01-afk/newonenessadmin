@@ -111,12 +111,12 @@ body{color:var(--ink)}
  .users-table td{padding:12px;border-bottom:1px solid #eee4d2;background:#fffdf8;color:#3f342d;font-size:14px;vertical-align:middle;overflow:hidden}
  .users-table tbody tr:nth-child(even) td{background:#fffbf4}
  .users-table tbody tr:hover td{background:#fff6e4}
- .users-table th:nth-child(1){width:26%}
- .users-table th:nth-child(2){width:27%}
+ .users-table th:nth-child(1){width:24%}
+ .users-table th:nth-child(2){width:25%}
  .users-table th:nth-child(3){width:12%}
  .users-table th:nth-child(4){width:12%}
  .users-table th:nth-child(5){width:11%}
- .users-table th:nth-child(6){width:12%}
+ .users-table th:nth-child(6){width:16%}
  .partner-name{display:block;color:#4a171b;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
  .partner-meta{display:block;margin-top:4px;color:#7d7066;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
  .contact-main{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -229,6 +229,9 @@ body{color:var(--ink)}
  }
  `;
  document.head.append(css);
+ const agencyStyles=document.createElement('style');
+ agencyStyles.textContent="/* ONeness Agency Sales Matrix \u2014 integrated, read-only analytical workspace. */\n.users-actions-cell{display:flex;gap:5px;align-items:center}\n.users-actions-cell button{min-height:34px!important;padding:6px 8px!important;font-size:11px!important;white-space:nowrap}\n.users-actions-cell .manage-btn{width:auto!important;flex:1}\n.users-matrix-btn{flex:1;border:1px solid #c59c45!important;background:#fff4d8!important;color:#653c17!important;font-weight:800}\n.users-matrix-btn:hover{background:#f5dfa2!important}\n@media (max-width:850px){.users-table td:nth-child(6) .users-actions-cell{display:grid;grid-template-columns:1fr 1fr;gap:7px}.users-actions-cell button{min-height:39px!important}}\n.agency-sheet{position:fixed!important;z-index:12000!important;inset:0!important;display:flex;flex-direction:column;min-height:0;background:#f6f1e7;color:#312b27;font-family:Inter,system-ui,-apple-system,\"Segoe UI\",sans-serif;font-size:13px;--asm-line:#ded4c2;--asm-gold:#bc8737;--asm-wine:#68141d;--asm-light:#fffcf6;--asm-muted:#736b63}\n.agency-sheet[hidden]{display:none!important}\n.agency-sheet *{box-sizing:border-box}\n.agency-sheet button,.agency-sheet input,.agency-sheet select{font:inherit}\n.agency-sheet button{transform:none!important;box-shadow:none!important}\n.asm-header{display:flex;justify-content:space-between;align-items:center;gap:14px;background:#5a1320;padding:13px 19px;color:#fff5df;border-bottom:2px solid #cca356;flex:none;flex-wrap:wrap}\n.asm-title-row{display:flex;gap:13px;align-items:center;min-width:0}\n.asm-back{min-width:43px!important;height:39px!important;background:#743041!important;border-color:#9e6e63!important;color:#ffe6ba!important;padding:6px 12px!important;font-size:17px!important}\n.asm-eyebrow{text-transform:uppercase;letter-spacing:1.1px;font-weight:850;font-size:9px;color:#d8b268}\n.asm-header h2{font:700 22px/1.1 Georgia,serif;color:#fff4dc;margin:3px 0 0}\n.asm-header-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}\n.asm-header-actions button{min-height:36px!important;padding:7px 11px!important;font-weight:800;background:#fff8e9!important;color:#63202b!important;border-color:#e7d2a4!important}\n.asm-header-actions .asm-ghost{background:transparent!important;border-color:#a66f5b!important;color:#f5dfb9!important}\n.asm-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:end;padding:10px 17px;background:#fffdf8;border-bottom:1px solid var(--asm-line);flex:none}\n.asm-toolbar label{display:grid;gap:4px;color:#6e6052;font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.2px;margin:0}\n.asm-toolbar input,.asm-toolbar select{height:35px;min-height:35px!important;padding:5px 8px!important;border:1px solid #d9cbb0;background:#fff!important;border-radius:6px!important;font-size:12px!important;color:#352922;min-width:0}\n.asm-toolbar .asm-search{flex:1 1 150px;min-width:120px}\n.asm-toolbar .asm-search input{width:100%}\n.asm-toolbar .asm-user-select{width:min(280px,100%)}\n.asm-toolbar .asm-user-select select{width:100%}\n.asm-note{background:#fff7e4;border-bottom:1px solid #e8d2a6;padding:6px 18px;font-size:11px;color:#765319;flex:none}\n.asm-note b{color:#5b301b}\n.asm-stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;padding:9px 15px;flex:none}\n.asm-stat{border:1px solid var(--asm-line);background:var(--asm-light);padding:10px 12px;border-radius:8px;min-width:0}\n.asm-stat span{display:block;font-size:10px;font-weight:800;color:#7a6b59;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase}\n.asm-stat strong{display:block;font:700 21px/1.2 Georgia,serif;margin-top:6px;color:#551823;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n.asm-stat.good{background:#eff8f0;border-color:#c1d6c3}.asm-stat.good strong{color:#236b38}\n.asm-stat.bad{background:#fff2f0;border-color:#e6c8c4}.asm-stat.bad strong{color:#9b403a}\n.asm-stat.warn{background:#fff8e5;border-color:#e4d4ac}\n.asm-main{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:9px;padding:0 15px 11px}\n.asm-pane{min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;background:#fffdf8;border:1px solid var(--asm-line);border-radius:8px}\n.asm-pane-title{flex:none;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--asm-line);background:#fffaf0}\n.asm-pane-title h3{font:700 16px/1.2 Georgia,serif;color:#601a25;margin:0}\n.asm-mini{font-size:10px;color:#826f5b;font-weight:700}\n.asm-scroll{flex:1;min-height:0;overflow:auto;scrollbar-color:#cdbd9b #fff9eb}\n.asm-grid{border-collapse:separate;border-spacing:0;width:100%;min-width:1120px;font-size:11px;line-height:1.4}\n.asm-grid th{position:sticky;top:0;z-index:2;text-align:left;background:#f2e5c8;color:#694929;font-weight:900;text-transform:uppercase;font-size:10px;padding:10px 9px;border-bottom:1px solid #cdbb95;white-space:nowrap}\n.asm-grid th:first-child{position:sticky;left:0;z-index:4;background:#f2e5c8}\n.asm-grid td{padding:10px 9px;border-bottom:1px solid #eee5d7;background:#fffdf9;color:#3f352e;white-space:nowrap;font-variant-numeric:tabular-nums}\n.asm-grid td:first-child{position:sticky;left:0;z-index:1;min-width:195px;max-width:195px;background:#fffdf9;border-right:1px solid #e9dec9}\n.asm-grid tbody tr:nth-child(2n) td{background:#fffbf4}.asm-grid tbody tr:nth-child(2n) td:first-child{background:#fffbf4}\n.asm-grid tbody tr:hover td,.asm-grid tbody tr:hover td:first-child{background:#fff3d9}\n.asm-grid tbody tr.asm-selected td,.asm-grid tbody tr.asm-selected td:first-child{background:#f7ead0!important}\n.asm-grid tbody tr{cursor:pointer}\n.asm-grid .asm-name{display:block;font-weight:900;color:#3d2c22;font-size:12px}\n.asm-grid .asm-code{display:block;margin-top:4px;font-weight:700;color:#8b7b67;font-size:10px}\n.asm-state{display:inline-flex;align-items:center;gap:4px;padding:5px 8px;border:1px solid transparent;border-radius:5px;font-size:10px;font-weight:900;white-space:nowrap}\n.asm-state.purchased{color:#197044;background:#dcf4e3;border-color:#b9dfc5}.asm-state.pending{color:#a23734;background:#fee7e4;border-color:#f0c8c4}.asm-state.awaiting{color:#956019;background:#fff1d1;border-color:#f3dda4}.asm-state.checking{color:#526079;background:#e9edf4;border-color:#d3dae8}\n.asm-count{font-weight:800;color:#5b5148}\n.asm-right-content{flex:1;overflow:auto;min-height:0;padding:11px;display:grid;gap:10px;align-content:start}\n.asm-user-card{display:flex;flex-wrap:wrap;justify-content:space-between;gap:9px;align-items:flex-start;border:1px solid #e8dcc6;border-radius:8px;background:#fffaf0;padding:11px}\n.asm-user-card h4{font-size:14px;margin:0;color:#62212a}\n.asm-user-card p{margin:5px 0 0;color:#6b625a;font-size:11px}\n.asm-user-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:start}\n.asm-user-tags span{padding:5px 7px;background:#f3e5c9;border-radius:5px;font-size:10px;color:#674f36;font-weight:750}\n.asm-focus-card{border:1px solid #e5d5b8;border-radius:8px;overflow:hidden}\n.asm-focus-head{padding:9px 11px;background:#f5ead6;display:flex;justify-content:space-between;align-items:center;gap:7px;flex-wrap:wrap}\n.asm-focus-head h4{margin:0;color:#592130;font-size:13px}\n.asm-focus-body{padding:11px;background:#fffdfa}\n.asm-focus-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-bottom:8px}\n.asm-focus-metrics div{padding:7px;border:1px solid #e8e0cf;border-radius:5px;min-width:0}\n.asm-focus-metrics span{display:block;color:#827262;font-weight:750;font-size:10px}\n.asm-focus-metrics strong{display:block;margin-top:5px;color:#4b3023;font-size:13px;overflow-wrap:anywhere}\n.asm-footnote{font-size:10px;color:#8e7762;line-height:1.5;margin:7px 0 0}\n.asm-orderlist{width:100%;border-collapse:collapse;font-size:11px}\n.asm-orderlist th{position:sticky;top:0;background:#f5eddb;color:#6c5640;text-align:left;padding:9px 7px;white-space:nowrap;font-size:9px;font-weight:900;text-transform:uppercase;z-index:1}\n.asm-orderlist td{padding:8px 7px;border-bottom:1px solid #eee5d8;vertical-align:top}\n.asm-orderlist td b{display:block;color:#563a27}\n.asm-orderlist td small{display:block;color:#756960;margin-top:3px}\n.asm-orderlist tr:hover td{background:#fff6df}\n.asm-orderlist button{min-height:28px!important;font-size:10px!important;padding:4px 7px!important;color:#5c1a24!important;border-color:#d0ba91!important}\n.asm-list-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;background:#fff8e8;border:1px solid #ecdfc8;border-radius:7px;color:#74614b;font-size:11px;font-weight:700;flex-wrap:wrap}\n.asm-list-meta button{min-height:29px!important;padding:4px 8px!important;font-size:10px!important}\n.asm-empty{border:1px dashed #d7c7a9;border-radius:7px;padding:14px;color:#826f59;font-size:11px;background:#fffaf0;line-height:1.6}\n.asm-detail{border:1px solid #d1bc92;border-radius:7px;overflow:hidden;background:#fff}\n.asm-detail h4{margin:0;padding:9px 11px;color:#58222a;background:#f5ebd5;font-size:13px}\n.asm-detail-inner{padding:10px;font-size:11px;line-height:1.6}\n.asm-detail table{width:100%;border-collapse:collapse;font-size:11px}\n.asm-detail th,.asm-detail td{padding:7px;border-bottom:1px solid #eee6d6;text-align:left;white-space:normal!important}\n.asm-detail .asm-data{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-bottom:9px}\n.asm-detail .asm-data div{background:#fff8e9;padding:7px;border-radius:5px;overflow-wrap:anywhere}\n.asm-detail .asm-data label{font-size:9px;color:#816b50;text-transform:uppercase;font-weight:850;display:block;margin:0}\n.asm-footer{display:flex;flex:none;align-items:center;justify-content:space-between;gap:7px;padding:8px 17px;border-top:1px solid #e1d6c3;background:#fffdf8;color:#796b5a;font-size:10px;flex-wrap:wrap}\n.asm-footer .error{color:#a23c34;font-weight:850}\n@media(max-width:1200px){.asm-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.asm-main{grid-template-columns:1fr 1fr}.asm-grid{min-width:1050px}}\n@media(max-width:850px){.agency-sheet{height:100dvh}.asm-header{padding:9px 10px;gap:8px}.asm-header h2{font-size:17px}.asm-header-actions button{min-height:31px!important;padding:5px 7px!important;font-size:10px!important}.asm-toolbar{padding:8px;gap:5px}.asm-toolbar label{flex:1 1 125px}.asm-toolbar label.asm-search{flex:2 1 180px}.asm-toolbar .asm-user-select{width:auto;flex:1 1 190px}.asm-toolbar input,.asm-toolbar select{width:100%}.asm-stats{grid-template-columns:repeat(3,1fr);gap:4px;padding:5px 7px}.asm-stat{padding:6px 7px}.asm-stat span{font-size:8px}.asm-stat strong{font-size:15px;margin-top:3px}.asm-main{display:flex;flex-direction:column;overflow:auto;gap:7px;padding:0 7px 8px}.asm-pane{overflow:visible;flex:none}.asm-scroll{overflow:auto;max-height:38dvh}.asm-right-content{max-height:none;overflow:visible}.asm-grid{min-width:1090px}.asm-pane-title h3{font-size:14px}.asm-note{padding:5px 9px;font-size:10px}.asm-footer{padding:5px 8px;font-size:9px}}\n@media print{body>*:not(.agency-sheet){display:none!important}.agency-sheet{position:static!important;height:auto!important;display:block!important;overflow:visible!important}.asm-back,.asm-header-actions,.asm-toolbar,.asm-list-meta button,.asm-orderlist button{display:none!important}.asm-main{display:block!important}.asm-pane{break-after:page;overflow:visible!important;margin:10px 0}.asm-scroll,.asm-right-content{overflow:visible!important;max-height:none!important}.asm-grid{min-width:0!important;font-size:8px}.asm-grid th,.asm-grid td{font-size:8px;padding:5px}.asm-grid td:first-child{min-width:100px;max-width:100px}.asm-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}\n";
+ document.head.append(agencyStyles);
 
  const A=await App.init('users',['users']),{$,esc,money}=A;
  let users=[],orders=[],shown=[],page=1;
@@ -362,7 +365,7 @@ body{color:var(--ink)}
     <td>${A.badge(u.role)}</td>
     <td>${A.badge(u.status)}</td>
     <td><span class="cod-pill ${u.cod_allowed?'on':''}">${u.cod_allowed?'Allowed':'Disabled'}</span></td>
-    <td><button data-open="${u.id}" class="manage-btn">Manage</button></td>
+    <td><div class="users-actions-cell"><button data-open="${u.id}" class="manage-btn">Manage</button>${u.role==='retailer'&&A.can('orders')&&A.can('finance')?`<button class="users-matrix-btn" data-matrix="${u.id}">Sales Matrix</button>`:''}</div></td>
    </tr>`).join('')}</tbody>
   </table></div>`;
  }
@@ -380,6 +383,7 @@ body{color:var(--ink)}
    $('prev').disabled=page===1;
    $('next').disabled=page>=totalPages;
    for(const b of document.querySelectorAll('[data-open]'))b.onclick=()=>manage(users.find(u=>u.id===+b.dataset.open));
+    for(const b of document.querySelectorAll('[data-matrix]'))b.onclick=()=>asmOpen(users.find(u=>u.id===+b.dataset.matrix));
   }catch(e){A.error(e)}
  }
 
@@ -414,6 +418,263 @@ body{color:var(--ink)}
   }
   $('dialog-body').append(extra);
  }
+
+  // Agency Sales Matrix: no database writes. All confirmations are based on server order details.
+  const AGENCY_LEVELS = Object.freeze([
+    {id:'customer',code:'1.00',name:'Customer',investment:69,pouchRate:69,pouchQty:69,familyPack:1,oneTime:0,incentive:'Salary',duration:'0'},
+    {id:'working',code:'1.03',name:'Working Agency',investment:693,pouchRate:58,pouchQty:12,familyPack:1,oneTime:0,incentive:100,duration:'1 Day'},
+    {id:'home',code:'1.05',name:'Home Agency',investment:5812,pouchRate:39,pouchQty:149,familyPack:12,oneTime:500,incentive:500,duration:'1 Month'},
+    {id:'ward',code:'1.06',name:'Ward Agency',investment:14000,pouchRate:35,pouchQty:400,familyPack:33,oneTime:1000,incentive:1100,duration:'1 Month'},
+    {id:'npmnp',code:'1.07',name:'NP/MNP Agency',investment:38272,pouchRate:33,pouchQty:1160,familyPack:97,oneTime:3000,incentive:3000,duration:'1 Month'},
+    {id:'taluka',code:'1.08',name:'Taluka Agency',investment:114817,pouchRate:35,pouchQty:3280,familyPack:273,oneTime:5000,incentive:5000,duration:'2 Months'},
+    {id:'district',code:'1.09',name:'District Agency',investment:344452,pouchRate:37,pouchQty:9310,familyPack:776,oneTime:10000,incentive:10000,duration:'3 Months'},
+    {id:'divisional',code:'1.10',name:'Divisional Agency',investment:1033357,pouchRate:36,pouchQty:28704,familyPack:2392,oneTime:15000,incentive:15000,duration:'6 Months'},
+    {id:'state',code:'1.11',name:'State Agency',investment:3100072,pouchRate:35,pouchQty:88573,familyPack:7381,oneTime:25000,incentive:25000,duration:'13 Months'},
+    {id:'national',code:'1.12',name:'National Stockist',investment:9300217,pouchRate:34,pouchQty:273536,familyPack:22795,oneTime:50000,incentive:50000,duration:'16 Months'},
+    {id:'international',code:'1.13',name:'Inter National Stockist',investment:27900652,pouchRate:33,pouchQty:845474,familyPack:70456,oneTime:100000,incentive:100000,duration:'26 Months'}
+  ]);
+  // Optional, explicit mapping for product IDs once catalog agency SKUs are created. Leave empty
+  // until an admin verifies the catalog IDs; ordinary products are never treated as agencies.
+  const AGENCY_PRODUCT_IDS = Object.freeze({});
+  const asm = {uid:null, selected:'customer', period:'all', from:'',to:'', status:'all', orderFilter:'all', search:'',sort:'chart', showAllOrders:true,
+    scanned:new Map(),failures:new Map(), detailCache:new Map(), detailOpen:null, scanNumber:0, running:false, finished:false,total:0,seen:0};
+  const asmNum=n=>new Intl.NumberFormat('en-IN',{maximumFractionDigits:0}).format(Number(n)||0);
+  const asmRupees=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format((Number(n)||0)/100);
+  const asmMoney=n=>asmRupees(Number(n)*100);
+  const asmPresent=t=>t?A.date(t):'—';
+  const asmValidOrder=o=>!['cancelled','refunded','returned','failed'].includes(String(o?.status||'').toLowerCase());
+  const asmIsCollected=o=>String(o?.payment_status||'').toLowerCase()==='collected';
+  const asmOrdId=o=>Number(o?.id);
+  const asmAllUserOrders=()=>orders.filter(o=>Number(o.user_id)===Number(asm.uid)).sort((a,b)=>Number(b.id)-Number(a.id));
+  const asmRange=()=>({start:asm.from?Date.parse(asm.from+'T00:00:00+05:30'):-Infinity,end:asm.to?Date.parse(asm.to+'T00:00:00+05:30')+86400000:Infinity});
+  const asmWithin=o=>{const t=Date.parse(o?.created_at||'');const {start,end}=asmRange();return Number.isFinite(t)&&t>=start&&t<end};
+  const asmOrders=()=>asmAllUserOrders().filter(asmWithin);
+  const asmPerson=()=>users.find(u=>Number(u.id)===Number(asm.uid));
+  const asmTokenize=s=>String(s||'').toLowerCase().replace(/[_–—-]/g,' ').replace(/\s+/g,' ').trim();
+  function asmIdentify(item){
+   const productId=Number(item?.product_id);
+   if(Number.isInteger(productId)&&Object.hasOwn(AGENCY_PRODUCT_IDS,productId))return AGENCY_PRODUCT_IDS[productId];
+   const name=asmTokenize(item?.title||item?.product_title||item?.name||'');
+   if(!name)return null;
+   // An unambiguous agency/stockist name is required; price or a generic product name is never enough.
+   if(/\b(inter\s*national|international)\s+stockist\b/.test(name))return 'international';
+   if(/\bnational\s+stockist\b/.test(name))return 'national';
+   const names=[['working',/\bworking\s+agency\b/],['home',/\bhome\s+agency\b/],['ward',/\bward\s+agency\b/],
+    ['npmnp',/\b(?:np\s*\/\s*mnp|np\s+mnp|mnp|nagar\s+panchayat|municipal\s+council)\s+agency\b/],
+    ['taluka',/\btaluka\s+agency\b/],['district',/\bdistrict\s+agency\b/],['divisional',/\b(?:division|divisional)\s+agency\b/],
+    ['state',/\bstate\s+agency\b/],['customer',/\bcustomer\s+(?:package|pack|plan|agency|registration|membership)\b|\b(?:package|pack|plan)\s+customer\b/]];
+   const matched=names.filter(([,re])=>re.test(name));
+   if(matched.length===1)return matched[0][0];
+   const code=name.match(/\b1\.(?:00|03|05|06|07|08|09|10|11|12|13)\b/);
+   if(code&&/\b(agency|stockist|package|pack|plan)\b/.test(name)){
+    const found=AGENCY_LEVELS.find(t=>t.code===code[0]);return found?.id||null;
+   }
+   return null;
+  }
+  function asmMatchesForOrder(o){
+   const d=asm.detailCache.get(asmOrdId(o));
+   const items=Array.isArray(d?.items)?d.items:[];
+   const matches=[];
+   for(const item of items){
+    const id=asmIdentify(item);
+    if(!id)continue;
+    const qty=Math.max(0,Number(item.qty||item.quantity||1));
+    const unit=Number(item.unit_price_paise);
+    matches.push({id,qty,amount:Number.isFinite(unit)&&unit>=0?qty*unit:null,title:String(item.title||'Agency package'),order:o});
+   }
+   return matches;
+  }
+  function asmPurchaseRows(){return asmOrders().map(o=>({...o,agencyLines:asmMatchesForOrder(o),scanned:asm.scanned.has(asmOrdId(o)),failed:asm.failures.has(asmOrdId(o))}));}
+  function asmTierInfo(level,records){
+   const lines=records.flatMap(r=>r.agencyLines.filter(x=>x.id===level.id).map(x=>({...x,order:r})));
+   const paid=lines.filter(x=>asmValidOrder(x.order)&&asmIsCollected(x.order));
+   const unpaid=lines.filter(x=>asmValidOrder(x.order)&&!asmIsCollected(x.order));
+   const sales=paid.reduce((n,x)=>n+(x.amount??0),0);
+   return {level,paid,unpaid,lines,sales, confirmedOrders:new Set(paid.map(x=>asmOrdId(x.order))).size,
+    state:paid.length?'purchased':unpaid.length?'awaiting':asm.finished&&!asm.invalidRange&&!records.some(r=>r.failed)?'pending':'checking'};
+  }
+  const asmStateLabel=state=>({purchased:'Purchased',pending:'Pending',awaiting:'Awaiting payment',checking:'Checking…'})[state]||'Checking…';
+  const asmPill=state=>`<span class="asm-state ${state}">${state==='purchased'?'● ':state==='pending'?'● ':state==='awaiting'?'◐ ':'◌ '}${asmStateLabel(state)}</span>`;
+  function asmSetPeriod(period){
+   asm.period=period;
+   let start='',end='',today=A.today();
+   const d=new Date(today+'T00:00:00Z');
+   if(period==='today')start=end=today;
+   if(period==='week'){start=new Date(d-6*86400000).toISOString().slice(0,10);end=today;}
+   if(period==='month'){start=today.slice(0,8)+'01';end=today;}
+   if(period==='lastmonth'){start=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()-1,1)).toISOString().slice(0,10);end=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),0)).toISOString().slice(0,10);}
+   if(period!=='custom'){asm.from=start;asm.to=end;}
+  }
+  function asmScanRestart(){
+   const ticket=++asm.scanNumber;
+   asm.running=true;asm.finished=false;asm.seen=0;
+   const list=asmAllUserOrders();asm.total=list.length;
+   if(!list.length){asm.finished=true;asm.running=false;asmRender();return;}
+   const queue=list.filter(o=>!asm.detailCache.has(asmOrdId(o))&&!asm.failures.has(asmOrdId(o)));
+   asm.seen=list.length-queue.length;
+   if(!queue.length){asm.finished=true;asm.running=false;asmRender();return;}
+   asmRender();
+   let idx=0;
+   async function worker(){
+    while(ticket===asm.scanNumber&&idx<queue.length){
+     const o=queue[idx++];
+     const id=asmOrdId(o);
+     try{
+      const detail=await A.api('order.details',{id});
+      if(ticket!==asm.scanNumber)return;
+      if(!Array.isArray(detail?.items))throw Error('Order item details unavailable');
+      asm.detailCache.set(id,detail);asm.scanned.set(id,true);asm.failures.delete(id);
+     }catch(err){if(ticket!==asm.scanNumber)return;asm.failures.set(id,String(err?.message||'Could not read order'));}
+     asm.seen++;asmRender();
+    }
+   }
+   Promise.all(Array.from({length:Math.min(3,queue.length)},()=>worker())).then(()=>{
+    if(ticket!==asm.scanNumber)return;
+    asm.running=false;asm.finished=true;asmRender();
+   });
+  }
+  function asmClose(){++asm.scanNumber;asm.uid=null;asm.running=false;document.getElementById('agency-sheet')?.remove();document.body.style.removeProperty('overflow');}
+  function asmOpen(u){
+   if(!u)return;
+   if(!(A.can('orders')&&A.can('finance'))){A.toast('Orders and finance permissions are required to view the Sales Matrix.');return;}
+   asmClose();asm.uid=Number(u.id);asm.selected='customer';asm.detailOpen=null;asm.status='all';asm.orderFilter='all';asm.search='';asm.sort='chart';asm.showAllOrders=true;
+   asmSetPeriod('all');
+   const root=document.createElement('div');root.id='agency-sheet';root.className='agency-sheet';root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-label','Agency Sales Matrix');
+   document.body.append(root);document.body.style.overflow='hidden';
+   asmBuildShell();asmScanRestart();
+  }
+  function asmBuildShell(){
+   const root=document.getElementById('agency-sheet');if(!root)return;
+   root.innerHTML=`<header class="asm-header">
+     <div class="asm-title-row"><button class="asm-back" id="asm-back" title="Return to Users">←</button>
+      <div><div class="asm-eyebrow">ONeness Group · Accounts / Sales Intelligence</div><h2>Agency Sales Matrix</h2></div></div>
+     <div class="asm-header-actions"><button id="asm-jump" class="asm-ghost">Order ledger ↓</button><button id="asm-reload" class="asm-ghost">↻ Reload orders</button><button id="asm-csv">↓ Export CSV</button><button id="asm-print">⎙ Print sheet</button></div>
+    </header>
+    <div class="asm-toolbar">
+      <label class="asm-user-select">Account<select id="asm-user">${users.filter(x=>x.role==='retailer').map(x=>`<option value="${Number(x.id)}" ${Number(x.id)===asm.uid?'selected':''}>#${Number(x.id)} · ${esc(x.business_name||x.name||'Account')}</option>`).join('')}</select></label>
+      <label>Period<select id="asm-period"><option value="all">All history</option><option value="today">Today (IST)</option><option value="week">Last 7 days</option><option value="month">This month</option><option value="lastmonth">Last month</option><option value="custom">Custom dates</option></select></label>
+      <label>From (IST)<input id="asm-from" type="date"></label>
+      <label>Through (IST)<input id="asm-to" type="date"></label>
+      <label>Agency status<select id="asm-status"><option value="all">All levels</option><option value="purchased">Purchased (green)</option><option value="pending">Pending (red)</option><option value="awaiting">Awaiting payment</option><option value="checking">Checking</option></select></label>
+      <label>Orders<select id="asm-order-filter"><option value="all">All payments</option><option value="paid">Collected</option><option value="unpaid">Not collected</option><option value="cancelled">Cancelled</option><option value="agency">Recognized agency items</option><option value="unknown">No agency item found</option></select></label>
+      <label class="asm-search">Find agency / order<input type="search" id="asm-search" placeholder="Level, order ID, product…"></label>
+    </div>
+    <div class="asm-note"><b>Rules:</b> Green = qualifying agency item with collected payment. Red = no qualifying agency purchase in selected dates, after completed checks. Amber = agency item ordered but not collected. Prices in the chart are reference values, not actual sales or promised earnings. Purchases can occur in any order.</div>
+    <div id="asm-stats" class="asm-stats"></div>
+    <main class="asm-main">
+      <section class="asm-pane"><div class="asm-pane-title"><h3>Agency chart · all 11 levels</h3><span id="asm-level-count" class="asm-mini"></span></div><div class="asm-scroll"><table class="asm-grid" id="asm-grid"><thead><tr>
+      <th>Agency / level</th><th>Status</th><th>Investment</th><th>Pouch rate</th><th>Pouch qty</th><th>Family pack</th><th>One-time bonus*</th><th>Incentive / target*</th><th>Duration*</th><th>Purchases</th><th>Collected value</th>
+      </tr></thead><tbody id="asm-level-rows"></tbody></table></div></section>
+      <section class="asm-pane"><div class="asm-pane-title"><h3>Retailer & order ledger</h3><span id="asm-order-count" class="asm-mini"></span></div>
+       <div class="asm-right-content"><section id="asm-user-card" class="asm-user-card"></section><section id="asm-focus" class="asm-focus-card"></section>
+        <div id="asm-ledger-note" class="asm-list-meta"></div><div style="overflow:auto;max-height:280px;border:1px solid #e8ddcb;border-radius:6px"><table class="asm-orderlist"><thead><tr><th>Order</th><th>Date (IST)</th><th>Order status</th><th>Payment</th><th>Order total</th><th>Agency match</th><th>View</th></tr></thead><tbody id="asm-ledger"></tbody></table></div>
+        <div id="asm-detail" hidden></div>
+       </div></section>
+    </main><footer class="asm-footer"><span id="asm-progress"></span><span>* Chart figures are supplied promotional reference values. No incentive is calculated or accrued by this page.</span></footer>`;
+   const id=x=>document.getElementById(x);
+   id('asm-back').onclick=asmClose;
+   id('asm-jump').onclick=()=>root.querySelectorAll('.asm-pane')[1]?.scrollIntoView({behavior:'smooth',block:'start'});
+   id('asm-reload').onclick=async()=>{const b=id('asm-reload');b.disabled=true;try{orders=await A.all('orders.list');asm.detailCache.clear();asm.scanned.clear();asm.failures.clear();asm.detailOpen=null;asmScanRestart();}catch(e){A.error(e);}finally{b.disabled=false;}};
+   id('asm-user').onchange=e=>{asm.uid=Number(e.target.value);asm.selected='customer';asm.showAllOrders=true;asm.detailOpen=null;asmScanRestart();};
+   id('asm-period').onchange=e=>{asmSetPeriod(e.target.value);asm.detailOpen=null;asmRender()};
+   for(const field of ['from','to'])id('asm-'+field).onchange=e=>{asm[field]=e.target.value;asm.period='custom';asmRender()};
+   id('asm-status').onchange=e=>{asm.status=e.target.value;asmRender()};
+   id('asm-order-filter').onchange=e=>{asm.orderFilter=e.target.value;asmRender()};
+   id('asm-search').oninput=e=>{asm.search=e.target.value.trim().toLowerCase();asmRender()};
+   id('asm-csv').onclick=asmExport;
+   id('asm-print').onclick=()=>window.print();
+   id('asm-grid').onclick=e=>{const row=e.target.closest('[data-asm-level]');if(row){asm.selected=row.dataset.asmLevel;asm.showAllOrders=false;asm.detailOpen=null;asmRender();}};
+   id('asm-ledger').onclick=e=>{const b=e.target.closest('[data-asm-order]');if(b){const orderId=Number(b.dataset.asmOrder);asm.detailOpen=asm.detailOpen===orderId?null:orderId;asmRenderDetailsOnly();}};
+   id('asm-ledger-note').onclick=e=>{if(e.target.closest('#asm-all-orders')){asm.showAllOrders=true;asmRender();}};
+   asmRender();
+  }
+  function asmExport(){
+   const records=asmPurchaseRows(),levels=AGENCY_LEVELS.map(t=>asmTierInfo(t,records));
+   const p=asmPerson();
+   const rows=levels.map(v=>[p?.id||'',p?.name||'',p?.business_name||'',v.level.code,v.level.name,asmStateLabel(v.state),v.level.investment,v.level.pouchRate,v.level.pouchQty,v.level.familyPack,v.level.oneTime,v.level.incentive,v.level.duration,v.confirmedOrders,v.paid.reduce((n,x)=>n+x.qty,0),v.sales/100,v.paid.map(x=>'ON'+x.order.id).join(' | '),v.unpaid.map(x=>'ON'+x.order.id).join(' | '),asm.from||'All',asm.to||'All',asm.finished?'Completed':'Still checking']);
+   A.csv('Agency Sales Matrix',['Account ID','Name','Business','Chart Code','Agency','Purchase status','Chart investment INR','Pouch rate INR','Pouch quantity','Family packs','One-time target INR','Incentive / target INR','Chart duration','Collected order count','Collected agency item quantity','Collected agency items INR','Collected order IDs','Unpaid order IDs','From IST','Through IST','Scan status'],rows,'Read-only reconciliation based on explicit item names and collected payments. Chart amounts are reference figures only.');
+  }
+  function asmRender(){
+   const root=document.getElementById('agency-sheet');if(!root||asm.uid===null)return;
+   const id=x=>document.getElementById(x);
+   const period=id('asm-period');if(!period)return;
+   period.value=asm.period;id('asm-from').value=asm.from;id('asm-to').value=asm.to;
+   id('asm-status').value=asm.status;id('asm-order-filter').value=asm.orderFilter;
+   if(Number(id('asm-user').value)!==asm.uid)id('asm-user').value=String(asm.uid);
+   asm.invalidRange=!!(asm.from&&asm.to&&asm.from>asm.to);
+   const records=asmPurchaseRows();const levels=AGENCY_LEVELS.map(t=>asmTierInfo(t,records));
+   const hasRangeError=!!(asm.from&&asm.to&&asm.from>asm.to);asm.invalidRange=hasRangeError;
+   const purchased=levels.filter(v=>v.state==='purchased').length, awaiting=levels.filter(v=>v.state==='awaiting').length;
+   const pending=levels.filter(v=>v.state==='pending').length;
+   const orderPaid=records.filter(o=>asmValidOrder(o)&&asmIsCollected(o));
+   const orderSales=orderPaid.reduce((n,o)=>n+(Number(o.total_paise)||0),0);
+   const agencySales=levels.reduce((n,v)=>n+v.sales,0);
+   const unclassified=records.filter(o=>o.scanned&&!o.failed&&!o.agencyLines.length).length;
+   const scanErrors=records.filter(o=>o.failed).length;
+   id('asm-stats').innerHTML=[
+    ['Levels purchased',`${purchased} / ${AGENCY_LEVELS.length}`,'good'],['Levels pending',asm.finished?String(pending):'Checking…','bad'],
+    ['Awaiting collection',String(awaiting),'warn'],['All collected orders',asmRupees(orderSales),''],
+    ['Agency item sales',asmRupees(agencySales),'good'],['Orders in period',asmNum(records.length),'']
+   ].map(([label,value,cls])=>`<div class="asm-stat ${cls}"><span>${esc(label)}</span><strong title="${esc(value)}">${esc(value)}</strong></div>`).join('');
+   const search=asm.search;
+   const filteredLevels=levels.filter(v=>(asm.status==='all'||v.state===asm.status)&&(!search||`${v.level.name} ${v.level.code} ${v.paid.map(x=>x.order.id).join(' ')} ${v.unpaid.map(x=>x.order.id).join(' ')}`.toLowerCase().includes(search)));
+   id('asm-level-count').textContent=filteredLevels.length+' of '+AGENCY_LEVELS.length+' levels';
+   id('asm-level-rows').innerHTML=filteredLevels.map(v=>`<tr data-asm-level="${v.level.id}" class="${asm.selected===v.level.id?'asm-selected':''}" title="Select ${esc(v.level.name)}">
+    <td><span class="asm-name">${esc(v.level.name)}</span><span class="asm-code">${esc(v.level.code)}</span></td><td>${asmPill(v.state)}</td><td>${asmMoney(v.level.investment)}</td><td>${asmMoney(v.level.pouchRate)}</td><td>${asmNum(v.level.pouchQty)}</td><td>${asmNum(v.level.familyPack)}</td><td>${asmMoney(v.level.oneTime)}</td><td>${typeof v.level.incentive==='number'?asmMoney(v.level.incentive):esc(v.level.incentive)}</td><td>${esc(v.level.duration)}</td><td>${asmNum(v.confirmedOrders)}</td><td>${asmRupees(v.sales)}</td></tr>`).join('')||'<tr><td colspan="11">No agency levels match these filters.</td></tr>';
+   const user=asmPerson();
+   id('asm-user-card').innerHTML=`<div><h4>${esc(user?.business_name||user?.name||'Retailer')} <small>#${asmNum(user?.id)}</small></h4>
+    <p>${esc(user?.name||'—')} · ${esc(user?.email||'—')} · ${esc(user?.phone||'—')}</p><p>Registered ${asmPresent(user?.created_at)} · ${asmNum(asmAllUserOrders().length)} orders (all dates)</p></div>
+    <div class="asm-user-tags"><span>${esc(user?.role||'—')}</span><span>${esc(user?.status||'—')}</span><span>COD ${user?.cod_allowed?'Allowed':'Disabled'}</span></div>`;
+   const selected=levels.find(v=>v.level.id===asm.selected)||levels[0];
+   const selectedOrders=selected.lines.slice().sort((a,b)=>asmOrdId(b.order)-asmOrdId(a.order));
+   const priceOnlyCandidates=records.filter(o=>o.scanned&&!o.failed&&!o.agencyLines.length&&asmValidOrder(o)&&Number(o.total_paise)===selected.level.investment*100);
+   id('asm-focus').innerHTML=`<div class="asm-focus-head"><h4>${esc(selected.level.code)} · ${esc(selected.level.name)}</h4>${asmPill(selected.state)}</div>
+    <div class="asm-focus-body"><div class="asm-focus-metrics"><div><span>Chart investment</span><strong>${asmMoney(selected.level.investment)}</strong></div>
+      <div><span>Collected agency value</span><strong>${asmRupees(selected.sales)}</strong></div><div><span>Paid orders</span><strong>${asmNum(selected.confirmedOrders)}</strong></div></div>
+     ${selectedOrders.length?`<div style="font-size:11px"><b>Matching orders:</b> ${selectedOrders.map(x=>`#ON${asmNum(x.order.id)} (${asmIsCollected(x.order)&&asmValidOrder(x.order)?'collected':!asmValidOrder(x.order)?'excluded':'payment pending'})`).join(' · ')}</div>`:
+      `<div class="asm-empty">${asm.finished?'No confirmed agency product recorded for this level during the selected dates.':'Scanning the account’s order line items. This status is provisional until the scan completes.'}</div>`}
+     ${priceOnlyCandidates.length?`<div class="asm-empty" style="margin-top:8px;border-color:#d0ad6c"><b>Review ${priceOnlyCandidates.length} price-only candidate(s):</b> ${priceOnlyCandidates.map(o=>'#ON'+asmNum(o.id)).join(', ')}. Total matches the chart investment, but the product is not identified as an agency. This does not turn the level green.</div>`:''}
+     <p class="asm-footnote">The reference chart is not a transaction ledger. Investment, incentives and duration are shown exactly as reference data; no automatic eligibility or payouts are inferred.</p></div>`;
+   const visible=records.filter(o=>{
+    if(!asm.showAllOrders&&!o.agencyLines.some(x=>x.id===asm.selected))return false;
+    if(asm.orderFilter==='paid'&&!(asmValidOrder(o)&&asmIsCollected(o)))return false;
+    if(asm.orderFilter==='unpaid'&&(!asmValidOrder(o)||asmIsCollected(o)))return false;
+    if(asm.orderFilter==='cancelled'&&asmValidOrder(o))return false;
+    if(asm.orderFilter==='agency'&&!o.agencyLines.length)return false;
+    if(asm.orderFilter==='unknown'&&(o.agencyLines.length||!o.scanned||o.failed))return false;
+    if(search&&!`${o.id} on${o.id} ${o.status||''} ${o.payment_status||''} ${(o.product_titles||[]).join(' ')} ${o.agencyLines.map(x=>x.title).join(' ')}`.toLowerCase().includes(search))return false;
+    return true;
+   });
+   id('asm-order-count').textContent=visible.length+' orders displayed';
+   id('asm-ledger-note').innerHTML=`<span>${asm.showAllOrders?'All orders in selected dates':'Orders with '+esc(selected.level.name)} · ${visible.length} shown · ${unclassified} checked without agency match${scanErrors?', '+scanErrors+' read errors':''}</span>${!asm.showAllOrders?'<button id="asm-all-orders">Show all orders</button>':''}`;
+   id('asm-ledger').innerHTML=visible.map(o=>{
+    const confirmed=o.agencyLines.some(x=>asmIsCollected(o)&&asmValidOrder(o));
+    const label=o.failed?'Could not inspect':!o.scanned?'Checking…':o.agencyLines.length?o.agencyLines.map(x=>AGENCY_LEVELS.find(v=>v.id===x.id)?.name||x.id).join(', '):'Unclassified product';
+    const st=o.agencyLines.length?(confirmed?'purchased':'awaiting'):'checking';
+    return `<tr><td><b>#ON${asmNum(o.id)}</b><small>${esc(o.payment_method||'—')}</small></td><td>${asmPresent(o.created_at)}</td><td>${esc(o.status||'—')}</td>
+      <td>${esc(o.payment_status||'—')}</td><td><b>${asmRupees(o.total_paise)}</b></td><td>${o.agencyLines.length?asmPill(st):`<small>${esc(label)}</small>`}<small>${o.agencyLines.length?esc(label):''}</small></td>
+      <td><button data-asm-order="${Number(o.id)}">${asm.detailOpen===Number(o.id)?'Hide':'Inspect'}</button></td></tr>`;
+   }).join('')||'<tr><td colspan="7" class="asm-empty">No orders match the current selections.</td></tr>';
+   id('asm-progress').textContent=(hasRangeError?'Invalid date range. ':'')+(asm.running?`Checking details: ${asm.seen}/${asm.total} orders…`:`Detail scan ${asm.seen}/${asm.total} complete.`)+(scanErrors?` ${scanErrors} could not be inspected; missing agency levels may be uncertain.`:'');
+   if(scanErrors)id('asm-progress').className='error';else id('asm-progress').className='';
+   asmRenderDetailsOnly();
+  }
+  function asmRenderDetailsOnly(){
+   const target=document.getElementById('asm-detail');if(!target)return;
+   const o=asmAllUserOrders().find(x=>asmOrdId(x)===asm.detailOpen);
+   if(!o){target.hidden=true;target.innerHTML='';return;}
+   const detail=asm.detailCache.get(asmOrdId(o));
+   target.hidden=false;target.className='asm-detail';
+   if(!detail){target.innerHTML=`<h4>Order #ON${asmNum(o.id)}</h4><div class="asm-detail-inner">${esc(asm.failures.get(asmOrdId(o))||'Order details are being loaded…')}</div>`;return;}
+   const items=detail.items||[];
+   target.innerHTML=`<h4>Order #ON${asmNum(o.id)} · Item verification</h4><div class="asm-detail-inner">
+    <div class="asm-data"><div><label>Created</label>${asmPresent(o.created_at)}</div><div><label>Order total</label>${asmRupees(o.total_paise)}</div>
+    <div><label>Payment</label>${esc(o.payment_status||'—')} · ${esc(o.payment_method||'—')}</div><div><label>Fulfilment</label>${esc(o.status||'—')}</div></div>
+    <table><thead><tr><th>Item at order time</th><th>Qty</th><th>Item amount</th><th>Agency classification</th></tr></thead><tbody>${items.map(i=>{
+     const tier=AGENCY_LEVELS.find(t=>t.id===asmIdentify(i));const qty=Number(i.qty||i.quantity||1);const unit=Number(i.unit_price_paise);
+     return `<tr><td>${esc(i.title||i.product_title||'Untitled')}</td><td>${asmNum(qty)}</td><td>${Number.isFinite(unit)?asmRupees(qty*unit):'—'}</td><td>${tier?esc(tier.name):'No verified agency mapping'}</td></tr>`;
+    }).join('')}</tbody></table><p class="asm-footnote">Classification uses explicit agency names in purchased line items. A price match alone is not proof of an agency purchase. Cancelled orders and uncollected payments never turn a level green.</p></div>`;
+  }
 
  A.wireDates(()=>{page=1;render();window.__closeUsersSheets?.()});
  for(const id of ['search','type','status'])$(id).oninput=()=>{page=1;render()};
